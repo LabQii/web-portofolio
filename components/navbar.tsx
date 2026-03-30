@@ -200,27 +200,15 @@ export default function Navbar() {
                         "relative px-4 py-2 mx-0.5 text-[14px] font-semibold rounded-full select-none",
                         "transition-colors duration-200",
                         showPill
-                          ? isActive && hoveredItem === null
-                            ? "text-white dark:text-white"          // resting on active
-                            : isActive
-                            ? "text-white dark:text-white"          // hovering the active item
-                            : "text-navy dark:text-white"           // hovering non-active
-                          : "text-slate-500 dark:text-slate-400"    // idle non-active
+                          ? "text-white dark:text-white"
+                          : "text-slate-500 dark:text-slate-400"
                       )}
                     >
-                      {/* Single pill shared by hover + active → slides via layoutId */}
+                      {/* Single pill — always same color so no color flash during slide */}
                       {showPill && (
                         <motion.span
                           layoutId="nav-pill"
-                          className={cn(
-                            "absolute inset-0 rounded-full",
-                            // solid when on active item, subtle when just hovering
-                            isActive && hoveredItem === null
-                              ? "bg-navy dark:bg-accent/75"
-                              : isActive
-                              ? "bg-navy dark:bg-accent/75"
-                              : "bg-slate-100 dark:bg-white/10"
-                          )}
+                          className="absolute inset-0 rounded-full bg-navy dark:bg-accent/75"
                           style={{ zIndex: -1 }}
                           transition={{
                             type: "spring",
