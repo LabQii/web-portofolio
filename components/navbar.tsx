@@ -181,7 +181,14 @@ export default function Navbar() {
               >
                 {navItems.map((item) => {
                   const isActive = getIsActive(item);
-                  const isHovered = hoveredItem === item.name;
+                  // Pill shows on this item when:
+                  //   a) it's being hovered, OR
+                  //   b) it's the active item AND nothing is hovered
+                  // → guarantees exactly ONE pill in the DOM at any time
+                  //   so layoutId can slide it smoothly
+                  const showPill =
+                    hoveredItem === item.name ||
+                    (isActive && hoveredItem === null);
 
                   return (
                     <Link
@@ -191,38 +198,35 @@ export default function Navbar() {
                       onMouseEnter={() => setHoveredItem(item.name)}
                       className={cn(
                         "relative px-4 py-2 mx-0.5 text-[14px] font-semibold rounded-full select-none",
-                        "transition-colors duration-150",
-                        isActive
-                          ? "text-white dark:text-white"
-                          : isHovered
-                          ? "text-navy dark:text-white"
-                          : "text-slate-600 dark:text-slate-400"
+                        "transition-colors duration-200",
+                        showPill
+                          ? isActive && hoveredItem === null
+                            ? "text-white dark:text-white"          // resting on active
+                            : isActive
+                            ? "text-white dark:text-white"          // hovering the active item
+                            : "text-navy dark:text-white"           // hovering non-active
+                          : "text-slate-500 dark:text-slate-400"    // idle non-active
                       )}
                     >
-                      {/* Active pill — persists across items via layoutId */}
-                      {isActive && (
+                      {/* Single pill shared by hover + active → slides via layoutId */}
+                      {showPill && (
                         <motion.span
-                          layoutId="active-pill"
-                          className="absolute inset-0 rounded-full bg-navy dark:bg-accent/70"
+                          layoutId="nav-pill"
+                          className={cn(
+                            "absolute inset-0 rounded-full",
+                            // solid when on active item, subtle when just hovering
+                            isActive && hoveredItem === null
+                              ? "bg-navy dark:bg-accent/75"
+                              : isActive
+                              ? "bg-navy dark:bg-accent/75"
+                              : "bg-slate-100 dark:bg-white/10"
+                          )}
                           style={{ zIndex: -1 }}
                           transition={{
                             type: "spring",
-                            stiffness: 400,
-                            damping: 38,
-                          }}
-                        />
-                      )}
-
-                      {/* Hover pill — slides between links on hover */}
-                      {isHovered && !isActive && (
-                        <motion.span
-                          layoutId="hover-pill"
-                          className="absolute inset-0 rounded-full bg-slate-100 dark:bg-white/10"
-                          style={{ zIndex: -1 }}
-                          transition={{
-                            type: "spring",
-                            stiffness: 400,
-                            damping: 38,
+                            stiffness: 500,
+                            damping: 40,
+                            mass: 0.6,
                           }}
                         />
                       )}
