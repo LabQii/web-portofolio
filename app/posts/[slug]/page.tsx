@@ -1,7 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Calendar } from "lucide-react";
@@ -34,11 +33,12 @@ export default async function PostDetailPage({ params }: Props) {
       <div className="relative z-10 flex flex-col min-h-screen">
         <ReadingProgress />
         <article className="w-full mx-auto px-4 py-16 sm:py-24 max-w-[768px] flex-grow">
-          <Button variant="ghost" asChild className="mb-6 pl-0 hover:pl-2 transition-all">
-            <Link href="/posts" className="flex items-center gap-2 text-muted hover:text-primary transition-colors">
-              <ArrowLeft className="h-4 w-4" /> Back to Posts
-            </Link>
-          </Button>
+          <Link
+            href="/posts"
+            className="inline-flex items-center gap-2 mb-6 pl-0 hover:pl-2 transition-all text-muted hover:text-primary transition-colors text-sm font-medium"
+          >
+            <ArrowLeft className="h-4 w-4" /> Back to Posts
+          </Link>
 
           <div className="flex flex-wrap gap-2 mb-4">
             <span className="bg-navy/10 text-navy dark:bg-white dark:text-navy font-bold text-[11px] px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">

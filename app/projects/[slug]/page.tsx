@@ -44,11 +44,12 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
       <div className="relative z-10 flex flex-col min-h-screen">
         <article className="w-full mx-auto px-4 py-16 sm:py-24 max-w-[1024px] flex-grow">
           <div className="mb-8">
-            <Button variant="ghost" asChild className="mb-6 pl-0 hover:pl-2 transition-all">
-              <Link href="/projects" className="flex items-center gap-2 text-muted hover:text-primary transition-colors">
-                <ArrowLeft className="h-4 w-4" /> Back to Projects
-              </Link>
-            </Button>
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-2 mb-6 pl-0 hover:pl-2 transition-all text-muted hover:text-primary transition-colors text-sm font-medium"
+            >
+              <ArrowLeft className="h-4 w-4" /> Back to Projects
+            </Link>
             <div className="flex flex-wrap gap-2 mb-4">
               <Badge variant="secondary" className="bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-500 dark:text-white dark:hover:bg-blue-600 border-transparent">
                 {project.category}
