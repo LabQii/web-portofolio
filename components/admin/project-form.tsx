@@ -31,7 +31,12 @@ export default function ProjectForm({ project, action, submitLabel = "Save Proje
   const [tagInput, setTagInput] = useState("");
   const [techInput, setTechInput] = useState("");
   const [thumbnail, setThumbnail] = useState<string | null>(project?.thumbnail ?? null);
+  const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
   const [featured, setFeatured] = useState(project?.featured ?? false);
+  const [uploadProgress, setUploadProgress] = useState<string | null>(null);
+
+  const [existingImages, setExistingImages] = useState<string[]>(project?.images ?? []);
+  const [newImages, setNewImages] = useState<{ file: File; preview: string }[]>([]);
 
   const addTag = () => { if (tagInput.trim()) { setTags([...tags, tagInput.trim()]); setTagInput(""); } };
   const removeTag = (index: number) => setTags(tags.filter((_, i) => i !== index));
@@ -44,14 +49,59 @@ export default function ProjectForm({ project, action, submitLabel = "Save Proje
     if (slugInput) slugInput.value = slug;
   };
 
+  const removeExistingImage = (index: number) => setExistingImages(existingImages.filter((_, i) => i !== index));
+  const removeNewImage = (index: number) => {
+    const toRemove = newImages[index];
+    URL.revokeObjectURL(toRemove.preview);
+    setNewImages(newImages.filter((_, i) => i !== index));
+  };
+
+  const uploadFile = async (file: File, folder: string): Promise<string> => {
+    const fd = new FormData();
+    fd.append("file", file);
+    fd.append("folder", folder);
+    const res = await fetch("/api/upload", { method: "POST", body: fd });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "Upload failed");
+    return data.url as string;
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    formData.set("tags", tags.join(","));
-    formData.set("techStack", techStack.join(","));
-    formData.set("featured", featured ? "on" : "");
+    const formEl = e.currentTarget;
+
     startTransition(async () => {
       try {
+        // -- 1. Upload thumbnail if a new file was selected --
+        let finalThumbnailUrl = project?.thumbnail || "";
+        if (thumbnailFile) {
+          setUploadProgress("Uploading thumbnail...");
+          finalThumbnailUrl = await uploadFile(thumbnailFile, "portfolio/projects");
+        }
+
+        // -- 2. Upload new gallery images one by one --
+        const uploadedUrls: string[] = [];
+        for (let i = 0; i < newImages.length; i++) {
+          setUploadProgress(`Uploading image ${i + 1} of ${newImages.length}...`);
+          const url = await uploadFile(newImages[i].file, "portfolio/projects/gallery");
+          uploadedUrls.push(url);
+        }
+
+        setUploadProgress("Saving project...");
+
+        // -- 3. Build a text-only FormData (no File objects) --
+        const formData = new FormData(formEl);
+        formData.set("tags", tags.join(","));
+        formData.set("techStack", techStack.join(","));
+        formData.set("featured", featured ? "on" : "");
+        // Pass thumbnail as resolved URL
+        formData.delete("thumbnail");
+        formData.set("thumbnailUrl", finalThumbnailUrl);
+        // Pass image URLs as comma-separated string
+        formData.delete("images");
+        const allImageUrls = [...existingImages, ...uploadedUrls];
+        formData.set("imageUrls", allImageUrls.join(","));
+
         const result = await action(formData);
         if (result.success) {
           success(project ? "Project updated successfully!" : "Project created successfully!");
@@ -62,7 +112,9 @@ export default function ProjectForm({ project, action, submitLabel = "Save Proje
         }
       } catch (err) {
         console.error("Form submission error:", err);
-        toastError("An unexpected error occurred. The file might be too large.");
+        toastError("Upload failed. Please check your files and try again.");
+      } finally {
+        setUploadProgress(null);
       }
     });
   };
@@ -156,18 +208,11 @@ export default function ProjectForm({ project, action, submitLabel = "Save Proje
 
         {/* Thumbnail */}
         <div>
-          <label className={label}>Thumbnail</label>
+          <label className={label}>Project Thumbnail (Cover) *</label>
           <div className="border-2 border-dashed border-[#cbd5e1] rounded-xl overflow-hidden hover:border-[#1e293b] hover:bg-[#f8fafc] transition-all cursor-pointer relative group">
             <input id="thumbnail" name="thumbnail" type="file" accept="image/*" onChange={(e) => { 
               const f = e.target.files?.[0]; 
-              if (f) {
-                if (f.size > 5 * 1024 * 1024) {
-                  toastError("File is too large. Max size is 5MB.");
-                  e.target.value = "";
-                  return;
-                }
-                setThumbnail(URL.createObjectURL(f)); 
-              }
+              if (f) { setThumbnailFile(f); setThumbnail(URL.createObjectURL(f)); }
             }} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" />
             {thumbnail ? (
               <div className="relative aspect-video"><Image src={thumbnail} alt="Thumbnail preview" fill className="object-cover" /><div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center"><span className="text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity bg-black/60 px-3 py-1.5 rounded-lg">Change Image</span></div></div>
@@ -181,11 +226,58 @@ export default function ProjectForm({ project, action, submitLabel = "Save Proje
           </div>
         </div>
 
+        {/* Gallery Images */}
+        <div>
+          <label className={label}>Gallery Images (Optional)</label>
+          <div className="border-2 border-dashed border-[#cbd5e1] rounded-xl p-4 hover:border-[#1e293b] hover:bg-[#f8fafc] transition-all relative">
+            <input id="images" name="images" type="file" accept="image/*" multiple onChange={(e) => {
+              if (e.target.files) {
+                const newPreviews = Array.from(e.target.files).map((file) => ({
+                  file,
+                  preview: URL.createObjectURL(file),
+                }));
+                setNewImages((prev) => [...prev, ...newPreviews]);
+              }
+              e.target.value = "";
+            }} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" />
+            
+            <div className="flex flex-col items-center justify-center gap-2 text-[#94a3b8] py-6 pointer-events-none">
+              <Upload className="h-6 w-6" />
+              <span className="text-[13px] font-medium text-[#64748b]">Upload additional project photos</span>
+              <span className="text-[11px]">You can select multiple files</span>
+            </div>
+          </div>
+          
+          {(existingImages.length > 0 || newImages.length > 0) && (
+            <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+              {existingImages.map((src, i) => (
+                <div key={`existing-${i}`} className="relative aspect-video rounded-lg overflow-hidden border border-slate-200 group shadow-sm">
+                  <Image src={src} alt={`Gallery image ${i}`} fill className="object-cover" />
+                  <button type="button" onClick={() => removeExistingImage(i)} className="absolute top-1 right-1 bg-red-500 hover:bg-red-600 text-white p-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity z-20">
+                    <X className="h-3 w-3" />
+                  </button>
+                </div>
+              ))}
+              {newImages.map((img, i) => (
+                <div key={`new-${i}`} className="relative aspect-video rounded-lg overflow-hidden border border-emerald-200 group shadow-sm">
+                  <Image src={img.preview} alt={`New gallery image ${i}`} fill className="object-cover" />
+                  <div className="absolute inset-0 border-[2px] border-emerald-400 rounded-lg pointer-events-none"></div>
+                  <button type="button" onClick={() => removeNewImage(i)} className="absolute top-1 right-1 bg-red-500 hover:bg-red-600 text-white p-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity z-20">
+                    <X className="h-3 w-3" />
+                  </button>
+                  <span className="absolute bottom-1 right-1 bg-emerald-500 text-white text-[10px] px-1.5 py-0.5 rounded font-medium z-10 shadow-sm">New</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
         {/* Actions */}
         <div className="flex justify-end gap-3 pt-2">
-          <button type="button" onClick={() => router.push("/admin/projects")} className="px-5 py-[10px] text-[14px] font-medium text-[#64748b] bg-white border border-[#e2e8f0] rounded-lg hover:bg-slate-50 transition-colors">Cancel</button>
-          <button type="submit" disabled={isPending} className="px-5 py-[10px] text-[14px] font-medium text-white bg-[#1e293b] hover:bg-[#0f172a] rounded-lg transition-colors disabled:opacity-50 flex items-center gap-2">
-            {isPending && <Loader2 className="h-4 w-4 animate-spin" />}{isPending ? "Saving..." : submitLabel}
+          <button type="button" onClick={() => router.push("/admin/projects")} disabled={isPending} className="px-5 py-[10px] text-[14px] font-medium text-[#64748b] bg-white border border-[#e2e8f0] rounded-lg hover:bg-slate-50 transition-colors disabled:opacity-50">Cancel</button>
+          <button type="submit" disabled={isPending} className="px-5 py-[10px] text-[14px] font-medium text-white bg-[#1e293b] hover:bg-[#0f172a] rounded-lg transition-colors disabled:opacity-50 flex items-center gap-2 min-w-[140px] justify-center">
+            {isPending && <Loader2 className="h-4 w-4 animate-spin" />}
+            {isPending ? (uploadProgress ?? "Saving...") : submitLabel}
           </button>
         </div>
       </form>

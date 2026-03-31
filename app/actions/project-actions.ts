@@ -2,7 +2,6 @@
 
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import cloudinary from "@/lib/cloudinary";
 
 import { randomBytes } from "crypto";
 
@@ -28,36 +27,22 @@ export async function createProject(formData: FormData) {
   const videoUrl = formData.get("videoUrl") as string | null;
   const githubUrl = formData.get("githubUrl") as string | null;
   const featured = formData.get("featured") === "on";
-  
+
   let slug = formData.get("slug") as string;
   if (!slug || slug.trim() === "") {
     slug = generateSlug(title);
   }
-  
+
   // Ensure slug is unique in the database to prevent Prisma constraint errors
   const existingProject = await prisma.project.findUnique({ where: { slug } });
   if (existingProject) {
     slug = `${slug}-${randomBytes(3).toString("hex")}`;
   }
 
-  // Handle thumbnail upload
-  const thumbnailFile = formData.get("thumbnail") as File | null;
-  let thumbnailUrl = "";
-  if (thumbnailFile && thumbnailFile.size > 0) {
-    if (thumbnailFile.size > 5 * 1024 * 1024) {
-      return { success: false, error: "Thumbnail file size must be less than 5MB" };
-    }
-    const buffer = Buffer.from(await thumbnailFile.arrayBuffer());
-    const uploadResult = await new Promise<any>((resolve, reject) => {
-      cloudinary.uploader
-        .upload_stream(
-          { folder: "portfolio/projects", format: "webp", quality: "auto", width: 1200, crop: "limit" },
-          (err, result) => (err ? reject(err) : resolve(result))
-        )
-        .end(buffer);
-    });
-    thumbnailUrl = uploadResult.secure_url;
-  }
+  // Thumbnail and images are already uploaded to Cloudinary by the client via /api/upload
+  const thumbnailUrl = (formData.get("thumbnailUrl") as string) || "";
+  const imageUrlsRaw = formData.get("imageUrls") as string;
+  const images = imageUrlsRaw ? imageUrlsRaw.split(",").filter(Boolean) : [];
 
   // Get latest order for new projects
   const lastProject = await prisma.project.findFirst({
@@ -72,7 +57,7 @@ export async function createProject(formData: FormData) {
       description,
       content: content || null,
       thumbnail: thumbnailUrl,
-      images: [],
+      images,
       tags,
       techStack,
       demoUrl: demoUrl || null,
@@ -103,24 +88,11 @@ export async function updateProject(id: string, formData: FormData) {
   const slug = formData.get("slug") as string;
 
   const existing = await prisma.project.findUnique({ where: { id } });
-  let thumbnailUrl = existing?.thumbnail || "";
 
-  const thumbnailFile = formData.get("thumbnail") as File | null;
-  if (thumbnailFile && thumbnailFile.size > 0) {
-    if (thumbnailFile.size > 5 * 1024 * 1024) {
-      return { success: false, error: "Thumbnail file size must be less than 5MB" };
-    }
-    const buffer = Buffer.from(await thumbnailFile.arrayBuffer());
-    const uploadResult = await new Promise<any>((resolve, reject) => {
-      cloudinary.uploader
-        .upload_stream(
-          { folder: "portfolio/projects", format: "webp", quality: "auto", width: 1200, crop: "limit" },
-          (err, result) => (err ? reject(err) : resolve(result))
-        )
-        .end(buffer);
-    });
-    thumbnailUrl = uploadResult.secure_url;
-  }
+  // Thumbnail and images are already uploaded to Cloudinary by the client via /api/upload
+  const thumbnailUrl = (formData.get("thumbnailUrl") as string) || existing?.thumbnail || "";
+  const imageUrlsRaw = formData.get("imageUrls") as string;
+  const images = imageUrlsRaw ? imageUrlsRaw.split(",").filter(Boolean) : (existing?.images ?? []);
 
   await prisma.project.update({
     where: { id },
@@ -130,6 +102,7 @@ export async function updateProject(id: string, formData: FormData) {
       description,
       content: content || null,
       thumbnail: thumbnailUrl,
+      images,
       tags,
       techStack,
       demoUrl: demoUrl || null,

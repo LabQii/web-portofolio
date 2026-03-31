@@ -12,6 +12,7 @@ import ReactMarkdown from 'react-markdown';
 import { getTechLogoDetails } from "@/lib/tech-icons";
 import TechLogoImage from "@/components/tech-logo-image";
 import VideoDemoButton from "@/components/video-demo-button";
+import ProjectGallery from "@/components/project-gallery";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -31,13 +32,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ProjectDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
-  const project = await prisma.project.update({
-    where: { slug },
-    data: { views: { increment: 1 } },
-  });
-  const customTechLogos = await prisma.techStack.findMany();
+  const [project, customTechLogos] = await Promise.all([
+    prisma.project.findUnique({ where: { slug } }),
+    prisma.techStack.findMany(),
+  ]);
 
   if (!project) notFound();
+
+  // Increment views in background — don't block render
+  void prisma.project.update({ where: { id: project.id }, data: { views: { increment: 1 } } });
+
+  const allImages = [project.thumbnail, ...project.images];
 
   return (
     <div className="min-h-screen pb-24 bg-page-gradient">
@@ -68,9 +73,8 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
             </div>
           </div>
 
-          {/* Thumbnail */}
-          <div className="relative aspect-video rounded-2xl overflow-hidden mb-12 shadow-xl border border-slate-100 dark:border-slate-800">
-            <Image src={project.thumbnail} alt={project.title} fill className="object-cover" />
+          <div className="mb-12">
+            <ProjectGallery images={allImages} />
           </div>
 
           {/* Links */}
@@ -156,19 +160,6 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 
           </div>
 
-          {/* Image Gallery */}
-          {project.images.length > 0 && (
-            <div className="mb-12">
-              <h2 className="text-xl font-semibold mb-4">Gallery</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {project.images.map((img, i) => (
-                  <div key={i} className="relative aspect-video rounded-xl overflow-hidden shadow-md border border-slate-100 dark:border-slate-800">
-                    <Image src={img} alt={`${project.title} screenshot ${i + 1}`} fill className="object-cover" />
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
         </article>
       </div>
     </div>
