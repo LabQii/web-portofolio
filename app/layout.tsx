@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -16,6 +16,13 @@ const font = Poppins({
   weight: ["300", "400", "500", "600", "700"],
 });
 
+export const viewport: Viewport = {
+  themeColor: "#0f172a",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://iqbalfir.vercel.app'),
   title: {
@@ -26,6 +33,15 @@ export const metadata: Metadata = {
   keywords: ["M Iqbal Firmansyah", "Web Developer", "UI Designer", "Frontend Developer", "React Developer", "Next.js", "Portfolio", "Indonesia"],
   authors: [{ name: "M Iqbal Firmansyah", url: "https://iqbalfir.vercel.app" }],
   creator: "M Iqbal Firmansyah",
+  applicationName: "Iqbal Portfolio",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Iqbal Portfolio",
+  },
+  formatDetection: {
+    telephone: false,
+  },
   openGraph: {
     title: "M Iqbal Firmansyah | Web Developer & UI Designer",
     description: "Clean, minimal, and professional portfolio of M Iqbal Firmansyah. Explore my projects, skills, and experiences.",
