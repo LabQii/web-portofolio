@@ -1,7 +1,7 @@
 import AdminSidebar from "@/components/admin/admin-sidebar";
 import AdminNavbar from "@/components/admin/admin-navbar";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { ConfirmProvider } from "@/components/ui/confirm-modal";
 import { ToastProvider } from "@/components/ui/toast";

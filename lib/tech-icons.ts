@@ -43,7 +43,8 @@ export function getTechLogoDetails(techName: string, customTechLogos: TechStackI
 
   // 2. Try to find in simple-icons
   const slug = normalizeForSlug(techName);
-  const icon = (simpleIcons as any).get ? (simpleIcons as any).get(slug) : (simpleIcons as any).Get ? (simpleIcons as any).Get(slug) : (simpleIcons as any)[`si${slug.charAt(0).toUpperCase()}${slug.slice(1)}`];
+  const strictIconName = `si${slug.charAt(0).toUpperCase()}${slug.slice(1)}`;
+  const icon = (simpleIcons as any)[strictIconName];
   
   if (icon) {
     return { 
