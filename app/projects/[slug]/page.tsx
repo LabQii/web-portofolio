@@ -13,6 +13,7 @@ import { getTechLogoDetails } from "@/lib/tech-icons";
 import TechLogoImage from "@/components/tech-logo-image";
 import VideoDemoButton from "@/components/video-demo-button";
 import ProjectGallery from "@/components/project-gallery";
+import ViewCounter from "@/components/view-counter";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -39,13 +40,14 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 
   if (!project) notFound();
 
-  // Increment views in background — don't block render
-  void prisma.project.update({ where: { id: project.id }, data: { views: { increment: 1 } } });
+  // The client side view counter handles incrementing after 2 seconds
+  // This solves Vercel edge/serverless function early termination issues and aggressive caching
 
   const allImages = [project.thumbnail, ...project.images];
 
   return (
     <div className="min-h-screen pb-24 bg-page-gradient">
+      <ViewCounter slug={project.slug} />
       <div className="relative z-10 flex flex-col min-h-screen">
         <article className="w-full mx-auto px-4 py-16 sm:py-24 max-w-[1024px] flex-grow">
           <div className="mb-8">
