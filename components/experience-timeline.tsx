@@ -20,10 +20,10 @@ type Experience = {
 function TimelineCard({ item }: { item: Experience }) {
   return (
     <div
-      className="rounded-2xl p-6 border relative overflow-hidden bg-surface border-slate-200 dark:border-slate-800 shadow-md shadow-slate-700/10"
+      className="group rounded-2xl p-6 border relative overflow-hidden bg-surface border-slate-200 dark:border-slate-800 shadow-md shadow-slate-700/10 hover:shadow-xl hover:shadow-navy/10 dark:hover:shadow-white/5 hover:-translate-y-1.5 hover:border-navy/20 dark:hover:border-slate-600 transition-all duration-500 ease-out"
     >
       <div 
-        className="absolute inset-0 pointer-events-none batik-overlay opacity-[0.01] bg-navy dark:bg-white" 
+        className="absolute inset-0 pointer-events-none batik-overlay opacity-[0.015] group-hover:opacity-[0.04] bg-navy dark:bg-white transition-opacity duration-500" 
         aria-hidden="true"
       />
       <div className="relative z-10">

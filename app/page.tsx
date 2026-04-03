@@ -84,12 +84,7 @@ export default async function Home() {
             <MobileProjectsCarousel projects={featuredProjects} customTechLogos={customTechLogos} />
           </div>
 
-          {/* All projects button (Only Mobile Now) */}
-          <div className="flex justify-center w-full mt-10 md:hidden">
-            <Link href="/projects" className="group flex items-center justify-center px-8 py-3.5 rounded-xl border border-navy shadow-sm dark:border-white text-navy dark:text-white bg-transparent hover:bg-navy hover:text-white dark:hover:bg-white dark:hover:text-navy font-bold text-[15px] transition-all duration-300 active:scale-[0.98]">
-              All projects <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-            </Link>
-          </div>
+
         </div>
       </section>
 
