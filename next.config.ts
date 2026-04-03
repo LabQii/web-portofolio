@@ -11,6 +11,7 @@ const withSerwist = withSerwistInit({
 const nextConfig = {
   images: {
     remotePatterns: [
+      { protocol: "https", hostname: "cdn.simpleicons.org" },
       { protocol: "https", hostname: "res.cloudinary.com" },
       { protocol: "https", hostname: "*.supabase.co" },
     ],

@@ -117,8 +117,8 @@ export default function Footer() {
       <div className="relative z-10 w-full mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 py-16 md:py-24">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
 
-          {/* Left Column: Socials */}
-          <div>
+          {/* Left Column: Socials (Hidden on Mobile) */}
+          <div className="hidden md:block">
             <h2 className="text-[2rem] font-bold text-primary mb-4 leading-tight">
               Connect with me:
             </h2>

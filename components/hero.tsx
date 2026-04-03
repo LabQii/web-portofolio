@@ -3,7 +3,7 @@
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { MessageCircle, Code2, Terminal, Cpu } from "lucide-react";
+import { MessageCircle, Code2, Terminal, Cpu, Github, Linkedin, Instagram, Facebook } from "lucide-react";
 import { useState, useRef } from "react";
 
 interface HeroProps {
@@ -76,6 +76,32 @@ export default function Hero({ name, description, cvUrl, cvFileName, cvId, profi
         <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-14">
 
           <div className="w-full lg:max-w-[50%] text-center lg:text-left relative z-10">
+            {/* Social Links on Mobile Only, positioned between image and name */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="flex md:hidden items-center justify-center gap-4 mb-6 -mt-2"
+            >
+              {[
+                { name: "GitHub", href: "https://github.com/LabQii", icon: Github, color: "hover:bg-[#24292e]" },
+                { name: "Facebook", href: "https://www.facebook.com/share/1CMSrW3JzB/", icon: Facebook, color: "hover:bg-[#1877f2]" },
+                { name: "Instagram", href: "https://www.instagram.com/iqbaallfir", icon: Instagram, color: "hover:bg-[#e4405f]" },
+                { name: "LinkedIn", href: "https://www.linkedin.com/in/labqii", icon: Linkedin, color: "hover:bg-[#0a66c2]" },
+              ].map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`bg-slate-900 dark:bg-white text-white dark:text-slate-900 p-2.5 rounded-lg transition-all transform hover:scale-110 ${link.color} dark:hover:text-white shadow-sm border border-transparent dark:border-slate-800`}
+                >
+                  <link.icon className="h-5 w-5 stroke-[1.5]" />
+                  <span className="sr-only">{link.name}</span>
+                </a>
+              ))}
+            </motion.div>
+
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -107,7 +133,7 @@ export default function Hero({ name, description, cvUrl, cvFileName, cvId, profi
                   View CV
                 </a>
               </Button>
-              <Button size="lg" variant="ghost" asChild className="text-primary hover:bg-slate-100/70 dark:text-white dark:hover:bg-slate-800/50 hover:text-accent dark:hover:text-white rounded-xl px-8 py-6 text-lg font-semibold transition-all duration-300">
+              <Button size="lg" variant="outline" asChild className="border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 hover:border-emerald-300 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-400 dark:hover:bg-emerald-500/20 dark:hover:border-emerald-500/50 rounded-xl px-8 py-6 text-lg font-semibold transition-all duration-300 shadow-sm">
                 <a
                   href="https://wa.me/6285177440699"
                   target="_blank"

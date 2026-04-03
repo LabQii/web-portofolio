@@ -173,14 +173,34 @@ export default function RecentPostsCarousel({ posts: initialPosts }: { posts: an
         </AnimatePresence>
       </div>
 
-      {/* Mobile: Link shown under carousel since detail panel is hidden */}
-      <div className="flex md:hidden justify-center mt-2 w-full">
-        <Link href={`/posts/${activePost.slug}`} className="w-full block">
-          <button className="w-full flex items-center justify-center bg-navy hover:bg-navy/90 dark:bg-slate-100 dark:text-navy dark:hover:bg-white shadow-sm rounded-lg py-3 text-sm font-bold text-white transition-all duration-300">
-            Read Full Post <ArrowRight className="w-4 h-4 ml-2" />
-          </button>
-        </Link>
-      </div>
+      {/* Mobile Details Box for Active Post */}
+      <AnimatePresence mode="wait">
+        <motion.div
+           key={currentIndex}
+           initial={{ opacity: 0, y: 10 }}
+           animate={{ opacity: 1, y: 0 }}
+           exit={{ opacity: 0, y: -10 }}
+           transition={{ duration: 0.3 }}
+           className="flex md:hidden flex-col bg-surface rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm relative w-full"
+        >
+          <div className="flex justify-between items-center mb-4">
+             <span className="uppercase tracking-widest text-[11px] text-slate-400 font-semibold">{formatDate(activePost.createdAt)}</span>
+             {activePost.category && (
+               <span className="bg-navy/10 text-navy dark:bg-white dark:text-navy font-bold text-[10px] px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-sm">
+                 {activePost.category}
+               </span>
+             )}
+          </div>
+          <p className="text-muted text-[14px] leading-relaxed line-clamp-4 mb-6">
+            {activePost.description}
+          </p>
+          <Link href={`/posts/${activePost.slug}`} className="w-full">
+            <button className="w-full flex items-center justify-center bg-navy hover:bg-navy/90 dark:bg-slate-100 dark:text-navy dark:hover:bg-white shadow-sm rounded-xl py-3.5 text-[14px] font-bold text-white transition-all duration-300">
+              Read Full Post <ArrowRight className="w-4 h-4 ml-2" />
+            </button>
+          </Link>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }

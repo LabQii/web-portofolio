@@ -5,6 +5,10 @@ import RecentPostsCarousel from "@/components/recent-posts-carousel";
 import AnimatedSectionHeader from "@/components/animated-section-header";
 import ExperienceTimeline from "@/components/experience-timeline";
 import TechMarquee from "@/components/tech-marquee";
+import MobileProjectsCarousel from "@/components/mobile-projects-carousel";
+import DesktopProjectList from "@/components/desktop-project-list";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -72,14 +76,19 @@ export default async function Home() {
         ></div>
         <div className="relative z-10 w-full mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <AnimatedSectionHeader title="Projects" href="/projects" />
-          <div className="flex flex-col gap-8">
-            {featuredProjects.length > 0 ? (
-              featuredProjects.map((project, index) => (
-                <ProjectCard key={project.id} project={project} customTechLogos={customTechLogos} index={index} />
-              ))
-            ) : (
-              <p className="text-muted-foreground italic">No featured projects yet.</p>
-            )}
+          {/* Desktop/Tablet Project List (Paginated) */}
+          <DesktopProjectList projects={featuredProjects} customTechLogos={customTechLogos} />
+          
+          {/* Mobile Project Carousel */}
+          <div className="flex md:hidden mt-8 w-full">
+            <MobileProjectsCarousel projects={featuredProjects} customTechLogos={customTechLogos} />
+          </div>
+
+          {/* All projects button (Only Mobile Now) */}
+          <div className="flex justify-center w-full mt-10 md:hidden">
+            <Link href="/projects" className="group flex items-center justify-center px-8 py-3.5 rounded-xl border border-navy shadow-sm dark:border-white text-navy dark:text-white bg-transparent hover:bg-navy hover:text-white dark:hover:bg-white dark:hover:text-navy font-bold text-[15px] transition-all duration-300 active:scale-[0.98]">
+              All projects <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+            </Link>
           </div>
         </div>
       </section>
