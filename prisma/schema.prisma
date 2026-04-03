@@ -109,3 +109,12 @@ model Experience {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
+
+model Notification {
+  id        String   @id @default(cuid())
+  title     String
+  message   String
+  type      String   @default("info") // "visitor", "info", etc.
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}

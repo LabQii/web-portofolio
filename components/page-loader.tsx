@@ -67,7 +67,7 @@ export default function PageLoader() {
       >
         {/* Brand icon with pulse */}
         <img
-          src="/images/icon.png"
+          src="/images/logo-new.png"
           alt="Logo"
           style={{
             width: 42,
@@ -79,7 +79,7 @@ export default function PageLoader() {
             userSelect: "none",
             borderRadius: 10,
             backgroundColor: "#ffffff",
-            padding: 4,
+            padding: 1,
             boxShadow: isDark ? "0 0 0 1px rgba(255,255,255,0.08)" : "none",
           }}
         />

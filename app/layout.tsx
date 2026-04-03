@@ -9,6 +9,7 @@ import Providers from "@/components/providers";
 import PageLoader from "@/components/page-loader";
 import { MusicPlayerButton } from "@/components/music-player-button";
 import MusicHintAlert from "@/components/music-hint-alert";
+import VisitorTracker from "@/components/visitor-tracker";
 import { getProfile } from "@/app/actions/profile";
 
 const font = Poppins({
@@ -87,6 +88,7 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <Providers>
+            <VisitorTracker />
             <div className="flex min-h-screen flex-col relative text-primary">
               <Navbar />
               <main className="flex-grow">{children}</main>
