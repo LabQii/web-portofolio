@@ -67,7 +67,7 @@ export default function PageLoader() {
       >
         {/* Brand icon with pulse */}
         <img
-          src="/images/logo-wolf.png"
+          src="/images/icon-wolf.png"
           alt="Logo"
           style={{
             width: 42,

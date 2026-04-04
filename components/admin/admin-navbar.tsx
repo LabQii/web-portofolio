@@ -72,7 +72,7 @@ export default function AdminNavbar() {
       <Link href="/admin" className="flex items-center gap-2.5 text-[18px] font-bold tracking-tight text-[#0f172a] group">
         <div className="relative w-10 h-10 flex items-center justify-center transition-all">
           <Image 
-            src="/images/logo-wolf.png" 
+            src="/images/icon-wolf.png" 
             alt="Logo" 
             width={40} 
             height={40} 
