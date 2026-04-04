@@ -4,7 +4,24 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Calendar, Eye, Github, ExternalLink, Code2, Database, Layout, Smartphone, Server, Paintbrush, Globe, Braces, Terminal } from "lucide-react";
+import { 
+  ArrowLeft, 
+  ArrowRight,
+  Calendar, 
+  Eye, 
+  Github, 
+  ExternalLink, 
+  MessageSquare,
+  Code2, 
+  Database, 
+  Layout, 
+  Smartphone, 
+  Server, 
+  Paintbrush, 
+  Globe, 
+  Braces, 
+  Terminal 
+} from "lucide-react";
 import { Metadata } from "next";
 import type { Project, TechStack } from "@prisma/client";
 import { formatDate } from "@/lib/utils";
@@ -33,15 +50,30 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ProjectDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
-  const [project, customTechLogos] = await Promise.all([
+  const [project, customTechLogos, allProjects] = await Promise.all([
     prisma.project.findUnique({ where: { slug } }),
     prisma.techStack.findMany(),
+    prisma.project.findMany({
+      orderBy: [
+        { order: 'asc' },
+        { createdAt: 'desc' }
+      ],
+      select: { 
+        title: true, 
+        slug: true, 
+        category: true, 
+        thumbnail: true 
+      }
+    })
   ]);
 
   if (!project) notFound();
 
-  // The client side view counter handles incrementing after 2 seconds
-  // This solves Vercel edge/serverless function early termination issues and aggressive caching
+  // Calculate next project
+  const currentIndex = allProjects.findIndex(p => p.slug === slug);
+  const nextProject = allProjects.length > 1 
+    ? allProjects[(currentIndex + 1) % allProjects.length] 
+    : null;
 
   const allImages = [project.thumbnail, ...project.images];
 
@@ -160,6 +192,78 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
               </div>
             </div>
 
+          </div>
+
+          {/* Discover More: Next Project & Contact */}
+          <div className="mt-24 border-t border-slate-100 dark:border-slate-800 pt-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+              
+              {/* Next Project Link */}
+              {nextProject && (
+                <Link 
+                  href={`/projects/${nextProject.slug}`}
+                  className="group relative overflow-hidden rounded-3xl bg-surface border border-slate-100 dark:border-slate-800 p-8 transition-all hover:shadow-xl hover:border-accent/30"
+                >
+                  <div className="flex flex-col h-full justify-between">
+                    <div>
+                      <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent mb-3 block">
+                        Next Project
+                      </span>
+                      <h3 className="text-2xl font-bold text-primary group-hover:text-accent transition-colors duration-300">
+                        {nextProject.title}
+                      </h3>
+                      <p className="text-sm text-muted mt-2">
+                        {nextProject.category}
+                      </p>
+                    </div>
+                    <div className="mt-8 flex items-center gap-2 text-sm font-bold text-primary group-hover:translate-x-1 transition-transform duration-300">
+                      Explore Project <ArrowRight className="w-4 h-4" />
+                    </div>
+                  </div>
+                  
+                  {/* Subtle Background Image Hint */}
+                  <div className="absolute top-0 right-0 w-1/2 h-full opacity-[0.03] dark:opacity-[0.05] group-hover:opacity-[0.06] transition-opacity">
+                     <Image 
+                        src={nextProject.thumbnail} 
+                        alt="" 
+                        fill 
+                        className="object-cover grayscale"
+                     />
+                  </div>
+                </Link>
+              )}
+
+              {/* Contact Me Card */}
+              <div className="rounded-3xl bg-navy dark:bg-slate-900/50 p-8 text-white relative overflow-hidden group border border-white/5 dark:border-slate-800">
+                <div className="relative z-10 flex flex-col h-full justify-between">
+                  <div>
+                    <h3 className="text-2xl font-bold mb-3">
+                      Interested in collaborating?
+                    </h3>
+                    <p className="text-white/70 text-sm leading-relaxed max-w-[280px]">
+                      Let's chat about your project and see how I can help bring your ideas to life.
+                    </p>
+                  </div>
+                  <div className="mt-8">
+                    <Button asChild className="bg-white text-navy hover:bg-accent hover:text-white dark:bg-white dark:text-navy dark:hover:bg-accent dark:hover:text-white rounded-xl px-6 font-bold shadow-lg transition-all duration-300 active:scale-95 border-none">
+                      <a 
+                        href="https://wa.me/6285177440699?text=Hello%20Iqbal%2C%20I%20saw%20your%20project%20and%20would%20like%20to%20discuss%20a%20collaboration!" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2"
+                      >
+                        <MessageSquare className="w-4 h-4 fill-current" />
+                        Chat on WhatsApp
+                      </a>
+                    </Button>
+                  </div>
+                </div>
+                
+                {/* Decorative Element */}
+                <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-white/5 rounded-full blur-3xl group-hover:bg-accent/10 transition-colors duration-500" />
+              </div>
+
+            </div>
           </div>
 
         </article>
