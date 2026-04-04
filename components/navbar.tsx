@@ -162,7 +162,7 @@ export default function Navbar() {
             >
               <div className="relative w-10 h-10 flex items-center justify-center bg-slate-50 dark:bg-slate-800 rounded-xl p-0.5 border border-slate-100 dark:border-slate-700 group-hover:border-navy/20 dark:group-hover:border-slate-500 transition-all shadow-sm">
                 <Image
-                  src="/images/logo-new.png"
+                  src="/images/logo-labqii.png"
                   alt="Labqii Tech Logo"
                   width={36}
                   height={36}
