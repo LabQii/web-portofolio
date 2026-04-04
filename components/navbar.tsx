@@ -162,7 +162,7 @@ export default function Navbar() {
             >
               <div className="relative w-8 h-8 flex items-center justify-center transition-all">
                 <Image
-                  src="/images/icon-wolf.png"
+                  src="/images/icon-labqii.png"
                   alt="Labqii Logo"
                   width={34}
                   height={34}

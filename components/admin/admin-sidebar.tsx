@@ -31,7 +31,7 @@ export default function AdminSidebar({ profileImage }: AdminSidebarProps) {
         <div className="flex items-center gap-3">
           <div className="relative w-9 h-9 rounded-lg overflow-hidden border border-[#e2e8f0] bg-slate-50 shrink-0 flex items-center justify-center p-1 shadow-sm">
             <Image
-              src={profileImage || "/images/icon-wolf.png"}
+              src={profileImage || "/images/icon-labqii.png"}
               alt="Profile"
               fill
               className={cn("object-cover", !profileImage && "object-contain opacity-80")}
