@@ -1,6 +1,6 @@
 <div align="center">
 
-# Labqii Tech
+# Labqii
 
 **Portfolio of Muhammad Iqbal Firmansyah**
 

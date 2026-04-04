@@ -70,16 +70,16 @@ export default function AdminNavbar() {
   return (
     <header className="h-[64px] bg-white border-b border-[#e2e8f0] flex items-center justify-between px-6 shrink-0 relative z-20">
       <Link href="/admin" className="flex items-center gap-2.5 text-[18px] font-bold tracking-tight text-[#0f172a] group">
-        <div className="relative w-10 h-10 flex items-center justify-center bg-slate-50 rounded-xl p-0.5 border border-slate-100 group-hover:border-[#0f172a]/20 transition-all shadow-sm">
+        <div className="relative w-10 h-10 flex items-center justify-center transition-all">
           <Image 
             src="/images/logo-labqii.png" 
             alt="Logo" 
-            width={36} 
-            height={36} 
+            width={40} 
+            height={40} 
             className="object-contain"
           />
         </div>
-        <span>Labqii Tech</span>
+        <span>Labqii</span>
       </Link>
 
       <div className="flex items-center gap-3">

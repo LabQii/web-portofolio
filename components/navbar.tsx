@@ -160,16 +160,16 @@ export default function Navbar() {
               href="/"
               className="flex items-center gap-2.5 text-[22px] font-bold tracking-tight text-primary group"
             >
-              <div className="relative w-10 h-10 flex items-center justify-center bg-slate-50 dark:bg-slate-800 rounded-xl p-0.5 border border-slate-100 dark:border-slate-700 group-hover:border-navy/20 dark:group-hover:border-slate-500 transition-all shadow-sm">
+              <div className="relative w-10 h-10 flex items-center justify-center transition-all">
                 <Image
                   src="/images/logo-labqii.png"
-                  alt="Labqii Tech Logo"
-                  width={36}
-                  height={36}
+                  alt="Labqii Logo"
+                  width={40}
+                  height={40}
                   className="object-contain"
                 />
               </div>
-              <span>Labqii Tech</span>
+              <span>Labqii</span>
             </Link>
 
             {/* ── Desktop Nav ───────────────────────────────────────────── */}
