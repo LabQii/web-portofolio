@@ -169,7 +169,7 @@ export default function Navbar() {
                   className="object-contain"
                 />
               </div>
-              <span>Labqii.</span>
+              <span>Labqii</span>
             </Link>
 
             {/* ── Desktop Nav ───────────────────────────────────────────── */}

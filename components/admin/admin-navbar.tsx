@@ -79,7 +79,7 @@ export default function AdminNavbar() {
             className="object-contain"
           />
         </div>
-        <span>Labqii.</span>
+        <span>Labqii</span>
       </Link>
 
       <div className="flex items-center gap-3">
