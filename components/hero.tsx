@@ -133,15 +133,15 @@ export default function Hero({ name, description, cvUrl, cvFileName, cvId, profi
                   View CV
                 </a>
               </Button>
-              <Button size="lg" variant="outline" asChild className="border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 hover:border-emerald-300 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-400 dark:hover:bg-emerald-500/20 dark:hover:border-emerald-500/50 rounded-xl px-8 py-6 text-lg font-semibold transition-all duration-300 shadow-sm">
+              <Button size="lg" asChild className="bg-white text-navy hover:bg-navy hover:text-white dark:bg-white dark:text-navy dark:hover:bg-accent dark:hover:text-white rounded-xl px-8 py-6 text-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300 active:scale-95 border-none">
                 <a
-                  href="https://wa.me/6285177440699"
+                  href="https://wa.me/6285177440699?text=Hello%20Iqbal%2C%20I%20saw%20your%20portfolio%20and%20would%20love%20to%20connect!"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 group"
+                  className="flex items-center gap-2"
                 >
-                  <MessageCircle className="w-5 h-5 opacity-0 -mr-6 group-hover:opacity-100 group-hover:mr-0 transition-all duration-300" />
-                  Contact Me
+                  <MessageCircle className="w-5 h-5 fill-current" />
+                  Chat on WhatsApp
                 </a>
               </Button>
             </motion.div>
