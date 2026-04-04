@@ -67,7 +67,7 @@ export default function PageLoader() {
       >
         {/* Brand icon with pulse */}
         <img
-          src="/images/logo-labqii.png"
+          src="/images/logo-new.png"
           alt="Logo"
           style={{
             width: 42,
