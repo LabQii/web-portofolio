@@ -10,35 +10,45 @@ import DesktopProjectList from "@/components/desktop-project-list";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600; // Revalidate every hour
 
 export default async function Home() {
-  const profile = await prisma.profile.findFirst();
-  const featuredProjects = await prisma.project.findMany({
-    where: { featured: true },
-    orderBy: [{ order: "asc" }, { createdAt: "desc" }],
-  });
-  const recentPosts = await prisma.post.findMany({
-    orderBy: [{ featured: "desc" }, { order: "asc" }, { createdAt: "desc" }],
-  });
-  const customTechLogos = await prisma.techStack.findMany();
-  const experiences = await prisma.experience.findMany({
-    orderBy: [{ featured: "desc" }, { order: "asc" }, { createdAt: "desc" }],
-  });
-  const cv = await prisma.cV.findFirst({
-    where: { isActive: true },
-  });
+  const [
+    profile,
+    featuredProjects,
+    recentPosts,
+    customTechLogos,
+    experiences,
+    cv,
+    rawImages,
+    allProjects
+  ] = await Promise.all([
+    prisma.profile.findFirst(),
+    prisma.project.findMany({
+      where: { featured: true },
+      orderBy: [{ order: "asc" }, { createdAt: "desc" }],
+    }),
+    prisma.post.findMany({
+      orderBy: [{ featured: "desc" }, { order: "asc" }, { createdAt: "desc" }],
+    }),
+    prisma.techStack.findMany(),
+    prisma.experience.findMany({
+      orderBy: [{ featured: "desc" }, { order: "asc" }, { createdAt: "desc" }],
+    }),
+    prisma.cV.findFirst({
+      where: { isActive: true },
+    }),
+    prisma.$queryRaw<any[]>`
+      SELECT url FROM "ProfileImage" 
+      ORDER BY 
+        CASE WHEN "isActive" = true THEN 0 ELSE 1 END, 
+        "createdAt" DESC 
+      LIMIT 1
+    `,
+    prisma.project.findMany({ select: { techStack: true } })
+  ]);
 
-  // Robust raw SQL: Prioritize Active, then most recent created
-  const rawImages = await prisma.$queryRaw<any[]>`
-    SELECT url FROM "ProfileImage" 
-    ORDER BY 
-      CASE WHEN "isActive" = true THEN 0 ELSE 1 END, 
-      "createdAt" DESC 
-    LIMIT 1
-  `;
   const activeProfileImage = rawImages[0] || null;
-  const allProjects = await prisma.project.findMany({ select: { techStack: true } });
 
   const allTechSet = new Set<string>();
   allProjects.forEach(p => p.techStack.forEach(t => allTechSet.add(t)));

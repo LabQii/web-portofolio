@@ -15,6 +15,7 @@ import { getProfile } from "@/app/actions/profile";
 const font = Poppins({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
 });
 
 export const viewport: Viewport = {
@@ -70,13 +71,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const profile = await getProfile();
-
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={font.className}>
