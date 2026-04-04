@@ -72,7 +72,7 @@ export default function AdminNavbar() {
       <Link href="/admin" className="flex items-center gap-2.5 text-[18px] font-bold tracking-tight text-[#0f172a] group">
         <div className="relative w-10 h-10 flex items-center justify-center transition-all">
           <Image 
-            src="/images/logo-new.png" 
+            src="/images/logo-wolf.png" 
             alt="Logo" 
             width={40} 
             height={40} 
@@ -84,7 +84,7 @@ export default function AdminNavbar() {
 
       <div className="flex items-center gap-3">
         <div className="relative" ref={dropdownRef}>
-          <button 
+          <button
             onClick={() => setIsOpen(!isOpen)}
             className={cn(
               "text-[#64748b] hover:text-[#0f172a] transition-colors p-2 rounded-full hover:bg-slate-100 relative",
@@ -109,7 +109,7 @@ export default function AdminNavbar() {
                 <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
                   <h3 className="font-bold text-slate-800 text-sm">Notifications</h3>
                   {unreadCount > 0 && (
-                    <button 
+                    <button
                       onClick={() => markAsRead("all")}
                       className="text-[11px] font-bold text-blue-600 hover:text-blue-700 transition-colors uppercase tracking-wider"
                     >
@@ -122,7 +122,7 @@ export default function AdminNavbar() {
                   {notifications.length > 0 ? (
                     <div className="divide-y divide-slate-50">
                       {notifications.map((notif) => (
-                        <div 
+                        <div
                           key={notif.id}
                           className={cn(
                             "p-4 transition-colors relative group",
@@ -144,7 +144,7 @@ export default function AdminNavbar() {
                           </p>
                           <div className="mt-3 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                             {!notif.isRead && (
-                              <button 
+                              <button
                                 onClick={() => markAsRead([notif.id])}
                                 className="flex items-center gap-1.5 px-2 py-1 rounded bg-white border border-slate-100 text-[10px] font-bold text-slate-600 hover:text-blue-600 transition-colors shadow-sm"
                               >
