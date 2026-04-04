@@ -70,17 +70,13 @@ export default function PageLoader() {
           src="/images/icon-wolf.png"
           alt="Logo"
           style={{
-            width: 42,
-            height: 42,
+            width: 32,
+            height: 32,
             objectFit: "contain",
             animation: "loader-pulse 2s ease-in-out infinite",
             position: "relative",
             zIndex: 1,
             userSelect: "none",
-            borderRadius: 10,
-            backgroundColor: "#ffffff",
-            padding: 1,
-            boxShadow: isDark ? "0 0 0 1px rgba(255,255,255,0.08)" : "none",
           }}
         />
 

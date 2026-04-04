@@ -160,16 +160,16 @@ export default function Navbar() {
               href="/"
               className="flex items-center gap-2.5 text-[22px] font-bold tracking-tight text-primary group"
             >
-              <div className="relative w-10 h-10 flex items-center justify-center transition-all">
+              <div className="relative w-8 h-8 flex items-center justify-center transition-all">
                 <Image
                   src="/images/icon-wolf.png"
                   alt="Labqii Logo"
-                  width={40}
-                  height={40}
+                  width={34}
+                  height={34}
                   className="object-contain"
                 />
               </div>
-              <span>Labqii</span>
+              <span>Labqii.</span>
             </Link>
 
             {/* ── Desktop Nav ───────────────────────────────────────────── */}
