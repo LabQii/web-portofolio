@@ -202,27 +202,27 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
               {nextProject && (
                 <Link 
                   href={`/projects/${nextProject.slug}`}
-                  className="group relative overflow-hidden rounded-3xl bg-surface dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 p-8 transition-all hover:shadow-xl hover:border-accent/30"
+                  className="group relative overflow-hidden rounded-3xl bg-white border border-slate-200 p-8 transition-all hover:shadow-xl hover:border-accent/40 hover:-translate-y-1"
                 >
-                  <div className="flex flex-col h-full justify-between">
+                  <div className="flex flex-col h-full justify-between relative z-10">
                     <div>
                       <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent mb-3 block">
                         Next Project
                       </span>
-                      <h3 className="text-2xl font-bold text-[#0f172a] dark:text-white group-hover:text-accent transition-colors duration-300">
+                      <h3 className="text-2xl font-bold text-[#0f172a] group-hover:text-accent transition-colors duration-300">
                         {nextProject.title}
                       </h3>
-                      <p className="text-sm text-[#64748b] dark:text-slate-400 mt-2">
+                      <p className="text-sm text-[#64748b] mt-2">
                         {nextProject.category}
                       </p>
                     </div>
-                    <div className="mt-8 flex items-center gap-2 text-sm font-bold text-[#0f172a] dark:text-white group-hover:translate-x-1 transition-transform duration-300">
-                      Explore Project <ArrowRight className="w-4 h-4" />
+                    <div className="mt-8 flex items-center gap-2 text-sm font-bold text-[#0f172a] group-hover:translate-x-1 group-hover:text-accent transition-all duration-300">
+                      Explore Project <ArrowRight className="w-4 h-4 text-accent" />
                     </div>
                   </div>
                   
                   {/* Subtle Background Image Hint */}
-                  <div className="absolute top-0 right-0 w-1/2 h-full opacity-[0.03] dark:opacity-[0.05] group-hover:opacity-[0.06] transition-opacity">
+                  <div className="absolute top-0 right-0 w-1/2 h-full opacity-[0.05] group-hover:opacity-[0.12] transition-opacity">
                      <Image 
                         src={nextProject.thumbnail} 
                         alt="" 
@@ -234,18 +234,18 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
               )}
 
               {/* Contact Me Card */}
-              <div className="rounded-3xl bg-navy dark:bg-slate-900/80 p-8 text-white relative overflow-hidden group border border-white/5 dark:border-slate-800/60">
+              <div className="rounded-3xl bg-navy dark:bg-[#1a356e] p-8 text-white relative overflow-hidden group border border-white/10 dark:border-white/20 shadow-lg transition-transform duration-300 hover:-translate-y-1">
                 <div className="relative z-10 flex flex-col h-full justify-between">
                   <div>
                     <h3 className="text-2xl font-bold mb-3 text-white">
                       Interested in collaborating?
                     </h3>
-                    <p className="text-white/70 dark:text-slate-400 text-sm leading-relaxed max-w-[280px]">
+                    <p className="text-white/80 dark:text-slate-200 text-sm leading-relaxed max-w-[280px]">
                       Let's chat about your project and see how I can help bring your ideas to life.
                     </p>
                   </div>
                   <div className="mt-8">
-                    <Button asChild className="bg-white text-navy hover:bg-accent hover:text-white dark:bg-slate-100 dark:text-navy dark:hover:bg-accent dark:hover:text-white rounded-xl px-6 font-bold shadow-lg transition-all duration-300 active:scale-95 border-none">
+                    <Button asChild className="bg-white text-navy hover:bg-accent hover:text-white dark:bg-white dark:text-navy dark:hover:bg-accent dark:hover:text-white rounded-xl px-6 font-bold shadow-lg transition-all duration-300 active:scale-95 border-none">
                       <a 
                         href="https://wa.me/6285177440699?text=Hello%20Iqbal%2C%20I%20saw%20your%20project%20and%20would%20like%20to%20discuss%20a%20collaboration!" 
                         target="_blank" 
@@ -260,7 +260,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
                 </div>
                 
                 {/* Decorative Element */}
-                <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-white/5 rounded-full blur-3xl group-hover:bg-accent/10 transition-colors duration-500" />
+                <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-white/5 dark:bg-white/10 rounded-full blur-3xl group-hover:bg-accent/30 transition-colors duration-500" />
               </div>
 
             </div>
