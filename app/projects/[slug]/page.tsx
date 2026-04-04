@@ -78,7 +78,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
   const allImages = [project.thumbnail, ...project.images];
 
   return (
-    <div className="min-h-screen pb-24 bg-page-gradient">
+    <div className="min-h-screen pb-12 bg-page-gradient">
       <ViewCounter slug={project.slug} />
       <div className="relative z-10 flex flex-col min-h-screen">
         <article className="w-full mx-auto px-4 py-16 sm:py-24 max-w-[1024px] flex-grow">
@@ -195,28 +195,28 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
           </div>
 
           {/* Discover More: Next Project & Contact */}
-          <div className="mt-24 border-t border-slate-100 dark:border-slate-800 pt-16">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+          <div className="mt-16 border-t border-slate-100 dark:border-slate-800 pt-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               
               {/* Next Project Link */}
               {nextProject && (
                 <Link 
                   href={`/projects/${nextProject.slug}`}
-                  className="group relative overflow-hidden rounded-3xl bg-surface border border-slate-100 dark:border-slate-800 p-8 transition-all hover:shadow-xl hover:border-accent/30"
+                  className="group relative overflow-hidden rounded-3xl bg-surface dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 p-8 transition-all hover:shadow-xl hover:border-accent/30"
                 >
                   <div className="flex flex-col h-full justify-between">
                     <div>
                       <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent mb-3 block">
                         Next Project
                       </span>
-                      <h3 className="text-2xl font-bold text-primary group-hover:text-accent transition-colors duration-300">
+                      <h3 className="text-2xl font-bold text-[#0f172a] dark:text-white group-hover:text-accent transition-colors duration-300">
                         {nextProject.title}
                       </h3>
-                      <p className="text-sm text-muted mt-2">
+                      <p className="text-sm text-[#64748b] dark:text-slate-400 mt-2">
                         {nextProject.category}
                       </p>
                     </div>
-                    <div className="mt-8 flex items-center gap-2 text-sm font-bold text-primary group-hover:translate-x-1 transition-transform duration-300">
+                    <div className="mt-8 flex items-center gap-2 text-sm font-bold text-[#0f172a] dark:text-white group-hover:translate-x-1 transition-transform duration-300">
                       Explore Project <ArrowRight className="w-4 h-4" />
                     </div>
                   </div>
@@ -234,18 +234,18 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
               )}
 
               {/* Contact Me Card */}
-              <div className="rounded-3xl bg-navy dark:bg-slate-900/50 p-8 text-white relative overflow-hidden group border border-white/5 dark:border-slate-800">
+              <div className="rounded-3xl bg-navy dark:bg-slate-900/80 p-8 text-white relative overflow-hidden group border border-white/5 dark:border-slate-800/60">
                 <div className="relative z-10 flex flex-col h-full justify-between">
                   <div>
-                    <h3 className="text-2xl font-bold mb-3">
+                    <h3 className="text-2xl font-bold mb-3 text-white">
                       Interested in collaborating?
                     </h3>
-                    <p className="text-white/70 text-sm leading-relaxed max-w-[280px]">
+                    <p className="text-white/70 dark:text-slate-400 text-sm leading-relaxed max-w-[280px]">
                       Let's chat about your project and see how I can help bring your ideas to life.
                     </p>
                   </div>
                   <div className="mt-8">
-                    <Button asChild className="bg-white text-navy hover:bg-accent hover:text-white dark:bg-white dark:text-navy dark:hover:bg-accent dark:hover:text-white rounded-xl px-6 font-bold shadow-lg transition-all duration-300 active:scale-95 border-none">
+                    <Button asChild className="bg-white text-navy hover:bg-accent hover:text-white dark:bg-slate-100 dark:text-navy dark:hover:bg-accent dark:hover:text-white rounded-xl px-6 font-bold shadow-lg transition-all duration-300 active:scale-95 border-none">
                       <a 
                         href="https://wa.me/6285177440699?text=Hello%20Iqbal%2C%20I%20saw%20your%20project%20and%20would%20like%20to%20discuss%20a%20collaboration!" 
                         target="_blank" 
