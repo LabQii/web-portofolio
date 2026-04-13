@@ -133,7 +133,6 @@ function ToastItem({ toast, onClose }: { toast: Toast; onClose: () => void }) {
         </button>
       </div>
 
-      {/* Countdown Progress Bar */}
       {toast.autoDismiss && (
         <div className="h-[3px] w-full bg-slate-50 relative rounded-b-[10px] overflow-hidden">
           <motion.div

@@ -4,8 +4,7 @@ import { NextResponse, userAgent } from "next/server";
 export async function POST(request: Request) {
   try {
     const { device, browser, os } = userAgent(request);
-    
-    // Construct a friendly message
+
     const deviceType = device.type ? `${device.type} ` : "";
     const browserName = browser.name || "Unknown Browser";
     const osName = os.name || "Unknown OS";

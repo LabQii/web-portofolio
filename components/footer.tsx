@@ -24,8 +24,6 @@ export default function Footer() {
 
   if (pathname.startsWith("/admin") || pathname.startsWith("/login")) return null;
 
-  // Re-trigger scroll on mount if the hash is #contact to handle dynamic content loading
-  // This ensures that even on initial load, the user lands at the bottom of the page.
   useEffect(() => {
     if (window.location.hash === "#contact") {
       const handleInitialScroll = () => {
@@ -86,7 +84,7 @@ export default function Footer() {
 
     startTransition(async () => {
       try {
-        // REPLACE 'mqaebrda' with your actual Formspree Form ID
+
         const response = await fetch("https://formspree.io/f/mqaebrda", {
           method: "POST",
           body: formData,
@@ -117,7 +115,6 @@ export default function Footer() {
       <div className="relative z-10 w-full mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 py-16 md:py-24">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
 
-          {/* Left Column: Socials (Hidden on Mobile) */}
           <div className="hidden md:block">
             <h2 className="text-[2rem] font-bold text-primary mb-4 leading-tight">
               Connect with me:
@@ -141,7 +138,6 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Right Column: Contact Form */}
           <div>
             <h3 className="text-[1.25rem] font-medium text-primary mb-6">
               Contact me by email, let's make magic together

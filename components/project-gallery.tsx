@@ -49,7 +49,7 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
 
   return (
     <div className="w-full flex flex-col gap-4">
-      {/* Main Image View */}
+      
       <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-900 shadow-lg border border-slate-200 dark:border-slate-800 group">
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
@@ -95,7 +95,6 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
         )}
       </div>
 
-      {/* Thumbnails */}
       {images.length > 1 && (
         <div className="w-full overflow-x-auto pb-2 scrollbar-none hide-scrollbar">
           <div className="flex gap-3 min-w-max">

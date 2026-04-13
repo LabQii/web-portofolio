@@ -11,7 +11,6 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const session = await getServerSession(authOptions);
   if (!session) redirect("/login");
 
-  // Fetch active profile image for the sidebar
   const activeImage = await prisma.$queryRaw<any[]>`
     SELECT url FROM "ProfileImage" 
     ORDER BY 
@@ -26,7 +25,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       <div className="flex flex-1 overflow-hidden relative z-0">
         <AdminSidebar profileImage={activeImage?.url} />
         <main className="flex-1 overflow-y-auto w-full relative">
-          {/* Subtle Batik Background Overlay */}
+          
           <div 
             className="absolute inset-0 pointer-events-none opacity-[0.01] z-0" 
             style={{ 

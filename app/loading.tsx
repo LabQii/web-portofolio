@@ -1,7 +1,7 @@
 export default function Loading() {
   return (
     <div className="flex flex-col animate-pulse">
-      {/* Hero Skeleton */}
+      
       <div className="w-full mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 py-20 md:py-32">
         <div className="h-12 md:h-20 bg-slate-200 dark:bg-slate-800 animate-shimmer rounded-2xl w-3/4 mb-6"></div>
         <div className="h-6 bg-slate-200 dark:bg-slate-800 animate-shimmer rounded-lg w-1/2 mb-4"></div>
@@ -12,7 +12,6 @@ export default function Loading() {
         </div>
       </div>
 
-      {/* Recent Posts Skeleton Section */}
       <section className="py-16 md:py-24 bg-page-gradient">
         <div className="w-full mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-8">
@@ -33,7 +32,6 @@ export default function Loading() {
         </div>
       </section>
 
-      {/* Featured Projects Skeleton Section */}
       <section className="py-16 md:py-24 bg-hero-gradient">
         <div className="w-full mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-10">

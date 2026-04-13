@@ -52,19 +52,17 @@ export default function PostForm({ post, action, submitLabel = "Save Post" }: Po
   return (
     <>
       <form onSubmit={handleSubmit} className="space-y-5" encType="multipart/form-data">
-        {/* Title + Slug */}
+        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div><label className={label}>Title *</label><input id="post-title" name="title" defaultValue={post?.title} onChange={generateSlug} required placeholder="Post title" className={cls} /></div>
           <div><label className={label}>Slug *</label><input id="post-slug" name="slug" defaultValue={post?.slug} required className={cls} /></div>
         </div>
 
-        {/* Description */}
         <div>
           <label className={label}>Description *</label>
           <textarea id="description" name="description" defaultValue={post?.description} required rows={4} placeholder="Brief summary of this post..." className={`${cls} resize-vertical`} />
         </div>
 
-        {/* Category + Event + Team + Featured */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-5 items-end">
           <div>
             <label className={label}>Category *</label>
@@ -86,7 +84,6 @@ export default function PostForm({ post, action, submitLabel = "Save Post" }: Po
           </div>
         </div>
 
-        {/* Thumbnail */}
         <div>
           <label className={label}>Thumbnail</label>
           <div className="border-2 border-dashed border-[#cbd5e1] rounded-xl overflow-hidden hover:border-[#1e293b] hover:bg-[#f8fafc] transition-all cursor-pointer relative group">
@@ -117,7 +114,6 @@ export default function PostForm({ post, action, submitLabel = "Save Post" }: Po
           </div>
         </div>
 
-        {/* Actions */}
         <div className="flex justify-end gap-3 pt-2">
           <button type="button" onClick={() => router.push("/admin/posts")} className="px-5 py-[10px] text-[14px] font-medium text-[#64748b] bg-white border border-[#e2e8f0] rounded-lg hover:bg-slate-50 transition-colors">Cancel</button>
           <button type="submit" disabled={isPending} className="px-5 py-[10px] text-[14px] font-medium text-white bg-[#1e293b] hover:bg-[#0f172a] rounded-lg transition-colors disabled:opacity-50 flex items-center gap-2">

@@ -43,7 +43,6 @@ export async function createPost(formData: FormData) {
     thumbnailUrl = await uploadThumbnail(thumbnailFile);
   }
 
-  // Get latest order
   const lastPost = await prisma.post.findFirst({
     orderBy: { order: "desc" },
   });

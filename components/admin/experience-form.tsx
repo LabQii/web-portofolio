@@ -55,13 +55,12 @@ export default function ExperienceForm({ experience, action, submitLabel = "Save
   return (
     <>
       <form onSubmit={handleSubmit} className="space-y-5">
-        {/* Title + Organization */}
+        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div><label className={label}>Title *</label><input id="title" name="title" defaultValue={experience?.title} required placeholder="e.g. Team Lead" className={cls} /></div>
           <div><label className={label}>Organization *</label><input id="organization" name="organization" defaultValue={experience?.organization} required placeholder="e.g. PKM-KC BINUS" className={cls} /></div>
         </div>
 
-        {/* Category + Period */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div>
             <label className={label}>Category *</label>
@@ -76,13 +75,11 @@ export default function ExperienceForm({ experience, action, submitLabel = "Save
           </div>
         </div>
 
-        {/* Description */}
         <div>
           <label className={label}>Description *</label>
           <textarea id="description" name="description" defaultValue={experience?.description} required rows={5} placeholder="Describe your role and achievements..." className={`${cls} resize-vertical min-h-[140px]`} />
         </div>
 
-        {/* Tags pill input */}
         <div>
           <label className={label}>Tags <span className="normal-case font-normal text-[#94a3b8]">(max 6)</span></label>
           <div className="border border-[#e2e8f0] rounded-lg px-3 py-2 min-h-[44px] flex flex-wrap gap-2 items-center focus-within:border-[#1e293b] focus-within:shadow-[0_0_0_3px_rgba(30,41,59,0.08)] transition-all">
@@ -103,7 +100,6 @@ export default function ExperienceForm({ experience, action, submitLabel = "Save
           </div>
         </div>
 
-        {/* Featured toggle */}
         <div className="flex flex-col justify-end pb-2">
           <label className="flex items-center gap-3 cursor-pointer select-none">
             <div
@@ -116,7 +112,6 @@ export default function ExperienceForm({ experience, action, submitLabel = "Save
           </label>
         </div>
 
-        {/* Actions */}
         <div className="flex justify-end gap-3 pt-2">
           <button type="button" onClick={() => router.push("/admin/experiences")} className="px-5 py-[10px] text-[14px] font-medium text-[#64748b] bg-white border border-[#e2e8f0] rounded-lg hover:bg-slate-50 transition-colors">Cancel</button>
           <button type="submit" disabled={isPending} className="px-5 py-[10px] text-[14px] font-medium text-white bg-[#1e293b] hover:bg-[#0f172a] rounded-lg transition-colors disabled:opacity-50 flex items-center gap-2">

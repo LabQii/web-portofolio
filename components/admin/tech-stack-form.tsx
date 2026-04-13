@@ -66,7 +66,7 @@ export default function TechStackAdminForm({ techStacks }: { techStacks: TechSta
   return (
     <>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-        {/* Existing Stacks Card */}
+        
         <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
           <h3 className="text-base font-bold text-slate-800 mb-4 px-2">Existing Stacks</h3>
           {techStacks.length === 0 ? (
@@ -95,7 +95,6 @@ export default function TechStackAdminForm({ techStacks }: { techStacks: TechSta
           )}
         </div>
 
-        {/* Add / Edit Logo Card */}
         <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
           <div className="flex items-center justify-between mb-6 px-2">
             <h3 className="text-base font-bold text-slate-800">

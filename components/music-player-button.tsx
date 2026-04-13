@@ -15,7 +15,7 @@ export function MusicPlayerButton() {
 
     return (
         <div className="fixed bottom-6 right-4 md:bottom-8 md:right-8 z-40 flex flex-col items-end gap-2">
-            {/* Tooltip label */}
+            
             <AnimatePresence>
                 {showLabel && (
                     <motion.div
@@ -29,7 +29,6 @@ export function MusicPlayerButton() {
                 )}
             </AnimatePresence>
 
-            {/* Player button */}
             <motion.button
                 whileTap={{ scale: 0.92 }}
                 onClick={toggle}
@@ -43,7 +42,7 @@ export function MusicPlayerButton() {
                         : "bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-200 border-slate-300 dark:border-slate-500 hover:bg-slate-50 dark:hover:bg-slate-600"
                     } backdrop-blur-sm disabled:opacity-40`}
             >
-                {/* Pulse rings when playing */}
+                
                 {isPlaying && (
                     <>
                         <span className="absolute inset-0 rounded-full bg-slate-900/20 dark:bg-white/20 animate-ping" />

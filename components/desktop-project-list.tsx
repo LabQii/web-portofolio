@@ -25,7 +25,7 @@ export default function DesktopProjectList({
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    // Optionally smooth scroll slightly up to the top of the projects list
+
     const element = document.getElementById("projects-section-top");
     if (element) {
       const y = element.getBoundingClientRect().top + window.scrollY - 100;
@@ -53,7 +53,6 @@ export default function DesktopProjectList({
         </AnimatePresence>
       </div>
 
-      {/* Pagination controls */}
       <div className="flex items-center justify-center gap-2 mt-12 md:mt-16 w-full">
         <button
           onClick={() => handlePageChange(Math.max(1, currentPage - 1))}

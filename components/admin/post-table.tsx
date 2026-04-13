@@ -100,7 +100,7 @@ export default function AdminPostTable({ posts: initialPosts }: { posts: Post[] 
                 <button
                   onClick={async () => {
                     const newFeatured = !(post as any).featured;
-                    // Optimistic update
+
                     setItems(items.map(p => p.id === post.id ? { ...p, featured: newFeatured } as Post : p));
                     try {
                       const { togglePostFeatured } = await import("@/app/actions/post-actions");
@@ -108,7 +108,7 @@ export default function AdminPostTable({ posts: initialPosts }: { posts: Post[] 
                       success(`Activity ${newFeatured ? "marked as featured" : "removed from featured"}`);
                     } catch (err) {
                       toastError("Failed to update featured status");
-                      // Revert
+
                       setItems(initialPosts);
                     }
                   }}

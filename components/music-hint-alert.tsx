@@ -8,7 +8,6 @@ export default function MusicHintAlert() {
   const [exiting, setExiting] = useState(false);
   const [isDark, setIsDark] = useState(false);
 
-  // Detect dark mode from .dark class (not prefers-color-scheme)
   useEffect(() => {
     const checkTheme = () => {
       setIsDark(document.documentElement.classList.contains("dark"));
@@ -20,14 +19,12 @@ export default function MusicHintAlert() {
   }, []);
 
   useEffect(() => {
-    // Only show once per session
+
     if (sessionStorage.getItem("music_hint_shown")) return;
 
-    // Show 1.5s after page load (after loader disappears)
     const showTimer = setTimeout(() => {
       setVisible(true);
 
-      // Auto-dismiss after 4s
       const dismissTimer = setTimeout(() => {
         setExiting(true);
         setTimeout(() => setVisible(false), 400);
@@ -71,7 +68,7 @@ export default function MusicHintAlert() {
         whiteSpace: "nowrap",
       }}
     >
-      {/* Music note icon — inherits text color so it's white in dark mode */}
+      
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="15"

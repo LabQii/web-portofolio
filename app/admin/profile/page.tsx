@@ -167,7 +167,7 @@ export default function EditProfilePage() {
       ) : (
         <form onSubmit={onSubmit} className="space-y-6 flex flex-col pb-20">
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 items-stretch">
-            {/* Card 1: Profile Information */}
+            
             <div className="bg-white rounded-[16px] shadow-[0_1px_3px_rgba(0,0,0,0.06),0_4px_16px_rgba(0,0,0,0.04)] p-[28px_32px] flex flex-col h-full">
               <div className="border-l-[3px] border-[#1e293b] pl-3 mb-5">
                 <h3 className="text-[15px] font-semibold text-[#0f172a]">
@@ -209,7 +209,6 @@ export default function EditProfilePage() {
               </div>
             </div>
 
-            {/* Card 2: Projects Settings */}
             <div className="bg-white rounded-[16px] shadow-[0_1px_3px_rgba(0,0,0,0.06),0_4px_16px_rgba(0,0,0,0.04)] p-[28px_32px] flex flex-col h-full">
               <div className="border-l-[3px] border-[#1e293b] pl-3 mb-5">
                 <h3 className="text-[15px] font-semibold text-[#0f172a]">
@@ -248,7 +247,6 @@ export default function EditProfilePage() {
               </div>
             </div>
 
-            {/* Card 3: Activities Settings */}
             <div className="bg-white rounded-[16px] shadow-[0_1px_3px_rgba(0,0,0,0.06),0_4px_16px_rgba(0,0,0,0.04)] p-[28px_32px] flex flex-col h-full">
               <div className="border-l-[3px] border-[#1e293b] pl-3 mb-5">
                 <h3 className="text-[15px] font-semibold text-[#0f172a]">
@@ -287,7 +285,6 @@ export default function EditProfilePage() {
               </div>
             </div>
 
-            {/* Card 4: Music + Hero Experience Settings */}
             <div className="bg-white rounded-[16px] shadow-[0_1px_3px_rgba(0,0,0,0.06),0_4px_16px_rgba(0,0,0,0.04)] p-[28px_32px] flex flex-col h-full">
               <div className="border-l-[3px] border-[#1e293b] pl-3 mb-5">
                 <h3 className="text-[15px] font-semibold text-[#0f172a]">
@@ -334,7 +331,6 @@ export default function EditProfilePage() {
 
           </div>
 
-          {/* New Card: Profile Image Management */}
           <div className="bg-white rounded-[16px] shadow-[0_1px_3px_rgba(0,0,0,0.06),0_4px_16px_rgba(0,0,0,0.04)] p-[28px_32px] flex flex-col h-full mt-6">
             <div className="border-l-[3px] border-[#1e293b] pl-3 mb-5 flex justify-between items-center">
               <h3 className="text-[15px] font-semibold text-[#0f172a]">
@@ -344,7 +340,7 @@ export default function EditProfilePage() {
             <div className="border-b border-[#f1f5f9] mb-5"></div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Left Side: Upload Form */}
+              
               <div className="space-y-4">
                 <div className="space-y-1.5">
                   <label className="block text-[12px] font-medium text-[#64748b] tracking-[0.03em] uppercase">
@@ -412,7 +408,6 @@ export default function EditProfilePage() {
                 )}
               </div>
 
-              {/* Right Side: Simple List */}
               <div className="space-y-3 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
                 <label className="block text-[12px] font-medium text-[#64748b] tracking-[0.03em] mb-2 uppercase">
                   EXISTING PHOTOS ({profileImages.length})
@@ -476,7 +471,6 @@ export default function EditProfilePage() {
             </div>
           </div>
 
-          {/* Elegant Delete Confirmation Modal */}
           {itemToDelete && (
             <div className="fixed inset-0 z-[2000] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-in fade-in duration-200">
               <div className="bg-white rounded-2xl shadow-2xl w-full max-w-[400px] overflow-hidden animate-in zoom-in-95 duration-200">
@@ -509,7 +503,6 @@ export default function EditProfilePage() {
             </div>
           )}
 
-          {/* Bottom Action Bar */}
           <div className="mt-4 bg-white rounded-[16px] shadow-sm border border-slate-100 p-6 flex items-center justify-between">
             <button
               type="button"

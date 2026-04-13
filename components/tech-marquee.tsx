@@ -13,7 +13,6 @@ export default function TechMarquee({
 }) {
   if (!techStacks?.length) return null;
 
-  // Split items into 2 rows for opposite directions
   const mid = Math.ceil(techStacks.length / 2);
   const row1 = techStacks.slice(0, mid);
   const row2 = techStacks.slice(mid);
@@ -21,15 +20,12 @@ export default function TechMarquee({
   const renderRow = (items: string[], direction: "left" | "right", duration: string) => {
     if (!items || items.length === 0) return null;
 
-    // Internal deduplication
     const uniqueItems = Array.from(new Set(items));
 
-    // Calculate repeats for ~60 items total
     let repeatCount = Math.max(2, Math.ceil(60 / uniqueItems.length));
     if (!isFinite(repeatCount)) repeatCount = 2;
     if (repeatCount % 2 !== 0) repeatCount++;
-    
-    // Cap at 100 items for performance
+
     const itemsToRender = Array(repeatCount).fill(uniqueItems).flat().slice(0, 100) as string[];
 
     return (

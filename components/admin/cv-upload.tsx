@@ -41,7 +41,7 @@ export default function CVUploadClient({ currentCV }: { currentCV: { fileUrl: st
 
   return (
     <div className="space-y-6">
-      {/* Current CV */}
+      
       {currentCV && (
         <div className="flex items-center gap-4 p-4 bg-[#f0fdf4] border border-[#bbf7d0] rounded-xl">
           <FileText className="h-6 w-6 text-[#16a34a] flex-shrink-0" />
@@ -61,7 +61,6 @@ export default function CVUploadClient({ currentCV }: { currentCV: { fileUrl: st
         </div>
       )}
 
-      {/* Drop Zone */}
       <div
         onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
         onDragLeave={() => setDragOver(false)}

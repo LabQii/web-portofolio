@@ -7,7 +7,7 @@ export default function manifest(): MetadataRoute.Manifest {
     description: 'Personal portfolio, projects, and experiences of Iqbal.',
     start_url: '/',
     display: 'standalone',
-    background_color: '#0f172a', /* slate-900 for dark mode default */
+    background_color: '#0f172a', 
     theme_color: '#0f172a',
     icons: [
       {

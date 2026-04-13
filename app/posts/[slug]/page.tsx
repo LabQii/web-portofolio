@@ -61,7 +61,6 @@ export default async function PostDetailPage({ params }: Props) {
             )}
           </div>
 
-          {/* Thumbnail */}
           <div className="relative aspect-video rounded-2xl overflow-hidden mb-12 shadow-xl border border-slate-100 dark:border-slate-800">
             <Image src={post.thumbnail} alt={post.title} fill className="object-cover" />
           </div>

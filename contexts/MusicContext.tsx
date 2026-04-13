@@ -28,13 +28,13 @@ declare global {
 
 function extractVideoId(url: string): string | null {
     if (!url) return null;
-    // Handle youtu.be short links
+
     const shortMatch = url.match(/youtu\.be\/([^?&]+)/);
     if (shortMatch) return shortMatch[1];
-    // Handle youtube.com/watch?v=...
+
     const longMatch = url.match(/[?&]v=([^?&]+)/);
     if (longMatch) return longMatch[1];
-    // Handle bare video ID (11 chars)
+
     if (/^[a-zA-Z0-9_-]{11}$/.test(url.trim())) return url.trim();
     return null;
 }
@@ -46,7 +46,6 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     const playerRef = useRef<any>(null);
     const hasInteractedRef = useRef(false);
 
-    // Fetch stored YouTube URL from DB
     useEffect(() => {
         getMusicUrl().then((url) => {
             if (url) setVideoId(extractVideoId(url));
@@ -122,7 +121,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
 
     return (
         <MusicContext.Provider value={{ isPlaying, toggle, isReady }}>
-            {/* Hidden YouTube player — audio only via invisible iframe */}
+            
             <div
                 style={{
                     position: "fixed",

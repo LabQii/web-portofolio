@@ -24,8 +24,7 @@ export async function GET(
     }
 
     const blob = await response.blob();
-    
-    // Create headers for inline viewing with the stored filename
+
     const headers = new Headers();
     headers.set("Content-Disposition", `inline; filename="${cv.fileName}"`);
     headers.set("Content-Type", "application/pdf");

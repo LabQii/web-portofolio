@@ -39,7 +39,7 @@ export default function MobileProjectsCarousel({
       onTouchStart={() => setIsHovered(true)}
       onTouchEnd={() => setIsHovered(false)}
     >
-      {/* Coverflow carousel */}
+      
       <div className="relative w-full h-[240px] flex items-center justify-center overflow-visible mb-6">
         {projects.map((project, idx) => {
           const total = projects.length;
@@ -113,7 +113,6 @@ export default function MobileProjectsCarousel({
         })}
       </div>
 
-      {/* Dot indicators */}
       <div className="flex justify-center items-center gap-2 mb-6">
         {projects.map((_, idx) => (
           <button
@@ -125,7 +124,6 @@ export default function MobileProjectsCarousel({
         ))}
       </div>
 
-      {/* Details Box for Active Project */}
       <AnimatePresence mode="wait">
         <motion.div
            key={currentIndex}

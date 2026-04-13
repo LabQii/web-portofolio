@@ -20,34 +20,27 @@ export default function Hero({ name, description, cvUrl, cvFileName, cvId, profi
   const defaultName = "Hi, I am Muhammad Iqbal Firmansyah";
   const defaultDesc = "Fullstack JavaScript Developer with hands-on experience in Google Apps Script automation and web application development for operational and business needs. He has a strong interest in Front-End Development and continuously improves his skills in Laravel and modern web technologies. Experienced in supporting internal systems, improving workflow efficiency, and mentoring learners in coding environments.";
 
-  // 3D Card State
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
-  
-  // Motion values for smooth 3D effect
+
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  // Springs for smoother physics
   const springX = useSpring(mouseX, { stiffness: 150, damping: 20 });
   const springY = useSpring(mouseY, { stiffness: 150, damping: 20 });
 
-  // Map mouse positions to rotation degrees (max 20)
   const rotateX = useTransform(springY, [-0.5, 0.5], [20, -20]);
   const rotateY = useTransform(springX, [-0.5, 0.5], [-20, 20]);
 
-  // Map mouse positions to glare position
   const glareX = useTransform(springX, [-0.5, 0.5], [0, 100]);
   const glareY = useTransform(springY, [-0.5, 0.5], [0, 100]);
-  
-  // Spring for the overall scale
+
   const scale = useSpring(isHovered ? 1.04 : 1, { stiffness: 200, damping: 20 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
-    
-    // Convert to relative coordinates inside the card: -0.5 to 0.5
+
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
     
@@ -76,7 +69,7 @@ export default function Hero({ name, description, cvUrl, cvFileName, cvId, profi
         <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-14">
 
           <div className="w-full lg:max-w-[50%] text-center lg:text-left relative z-10">
-            {/* Social Links on Mobile Only, positioned between image and name */}
+            
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -147,12 +140,10 @@ export default function Hero({ name, description, cvUrl, cvFileName, cvId, profi
             </motion.div>
           </div>
 
-          {/* Right Area: Dev Portfolio Card */}
           <div className="relative flex items-center justify-center flex-shrink-0 p-8 md:p-10">
-            {/* Decorative blob */}
+            
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] md:w-[420px] md:h-[420px] bg-blue-50/80 dark:bg-slate-700/40 rounded-full -z-10 opacity-60"></div>
 
-            {/* Main Photo Card Container */}
             <motion.div
               ref={cardRef}
               initial={{ opacity: 0, scale: 0.95 }}
@@ -176,7 +167,7 @@ export default function Hero({ name, description, cvUrl, cvFileName, cvId, profi
                 }}
                 className="w-full h-full relative"
               >
-                {/* Glare Effect */}
+                
                 <motion.div 
                   className="absolute inset-0 rounded-[24px] pointer-events-none z-40"
                   initial={{ opacity: 0 }}
@@ -190,13 +181,11 @@ export default function Hero({ name, description, cvUrl, cvFileName, cvId, profi
                   }}
                 />
 
-                {/* Corner Brackets */}
                 <div className="absolute -top-3 -left-3 w-8 h-8 border-t-2 border-l-2 border-transparent rounded-tl-xl z-30 transition-all duration-300 group-hover:scale-110 group-hover:border-blue-500"></div>
                 <div className="absolute -top-3 -right-3 w-8 h-8 border-t-2 border-r-2 border-transparent rounded-tr-xl z-30 transition-all duration-300 group-hover:scale-110 group-hover:border-blue-500"></div>
                 <div className="absolute -bottom-3 -left-3 w-8 h-8 border-b-2 border-l-2 border-transparent rounded-bl-xl z-30 transition-all duration-300 group-hover:scale-110 group-hover:border-blue-500"></div>
                 <div className="absolute -bottom-3 -right-3 w-8 h-8 border-b-2 border-r-2 border-transparent rounded-br-xl z-30 transition-all duration-300 group-hover:scale-110 group-hover:border-blue-500"></div>
 
-                {/* Photo Area */}
                 <div className="absolute inset-0 bg-slate-100 rounded-[24px] shadow-2xl overflow-hidden border border-white/40">
                   <Image
                     src={profileImageUrl || ""}
@@ -208,7 +197,6 @@ export default function Hero({ name, description, cvUrl, cvFileName, cvId, profi
                   />
                 </div>
 
-                {/* Floating Code Snippets */}
                 <div 
                   className={`absolute top-12 -left-12 bg-white/60 dark:bg-slate-900/40 backdrop-blur-md text-slate-800 dark:text-slate-100 font-mono text-[11px] px-3 py-1.5 rounded-lg flex items-center shadow-lg border border-slate-200/50 dark:border-white/10 z-30 transition-all duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)]
                     ${isHovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
@@ -233,7 +221,6 @@ export default function Hero({ name, description, cvUrl, cvFileName, cvId, profi
                   php<span className="text-emerald-400 mx-1.5">artisan</span><span className="text-orange-300">serve</span>
                 </div>
 
-                {/* Floating Decorative Icons */}
                 <div 
                   className={`absolute top-4 -right-6 w-10 h-10 bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center shadow-xl border border-white/50 z-30 transition-all duration-500 delay-150 ease-[cubic-bezier(0.22,0.61,0.36,1)]
                     ${isHovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
@@ -250,7 +237,6 @@ export default function Hero({ name, description, cvUrl, cvFileName, cvId, profi
                   <Cpu className="w-5 h-5 text-navy dark:text-accent drop-shadow-sm" />
                 </div>
 
-                {/* Tech Stack Badges (Row above photo) */}
                 <div className="absolute -top-6 left-0 right-0 hidden lg:flex justify-center z-30 pointer-events-none">
                   <div
                     className={`flex items-center gap-3 w-max pointer-events-auto transition-all duration-700 ease-[cubic-bezier(0.22,0.61,0.36,1)]`}
@@ -271,7 +257,6 @@ export default function Hero({ name, description, cvUrl, cvFileName, cvId, profi
                   </div>
                 </div>
 
-                {/* Experience Badge */}
                 <div
                   className="absolute -bottom-3 -right-3 md:-bottom-4 md:-right-4 bg-white/90 dark:bg-[#1e293b] backdrop-blur-sm rounded-2xl px-4 py-3 shadow-xl border border-white/60 dark:border-slate-600 min-w-[130px] z-30 transition-all duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)]"
                   style={{ transform: isHovered ? "translateZ(60px)" : "translateZ(0)" }}
@@ -287,7 +272,6 @@ export default function Hero({ name, description, cvUrl, cvFileName, cvId, profi
               </motion.div>
             </motion.div>
 
-            {/* Tech Stack Badges (Mobile: Stacked below) */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

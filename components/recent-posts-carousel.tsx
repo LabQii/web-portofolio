@@ -33,15 +33,14 @@ export default function RecentPostsCarousel({ posts: initialPosts }: { posts: an
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Left Area: Carousel */}
+      
       <div className="w-full md:w-[55%] lg:max-w-[600px] flex flex-col overflow-hidden">
-        {/* Coverflow container */}
+        
         <div className="relative w-full h-[260px] md:h-[300px] flex items-center justify-center overflow-visible">
           {displayPosts.map((post, idx) => {
             const total = displayPosts.length;
             let dist = idx - currentIndex;
 
-            // Normalize distance — prefer shortest path around the loop
             if (dist < -Math.floor(total / 2)) dist += total;
             if (dist > Math.floor(total / 2)) dist -= total;
 
@@ -49,8 +48,7 @@ export default function RecentPostsCarousel({ posts: initialPosts }: { posts: an
             const isSide = Math.abs(dist) === 1;
             const isHidden = Math.abs(dist) > 1;
 
-            // Derived animated values
-            const xPercent = dist * 62;          // side cards offset %
+            const xPercent = dist * 62;
             const scale = isActive ? 1 : 0.85;
             const opacity = isActive ? 1 : isSide ? 0.6 : 0;
             const rotateY = isActive ? 0 : dist > 0 ? -15 : 15;
@@ -96,7 +94,7 @@ export default function RecentPostsCarousel({ posts: initialPosts }: { posts: an
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 </div>
-                {/* Featured Star Badge */}
+                
                 {post.featured && (
                   <motion.div
                     initial={{ opacity: 0, scale: 0.7 }}
@@ -119,7 +117,6 @@ export default function RecentPostsCarousel({ posts: initialPosts }: { posts: an
           })}
         </div>
 
-        {/* Dot indicators */}
         <div className="flex justify-center items-center gap-2 mt-8 md:mt-10">
           {displayPosts.map((_, idx) => (
             <button
@@ -132,7 +129,6 @@ export default function RecentPostsCarousel({ posts: initialPosts }: { posts: an
         </div>
       </div>
 
-      {/* Right Area: Static Detail Panel (Desktop only) */}
       <div className="hidden md:flex flex-1 relative z-10 flex-col h-[340px] my-auto">
         <AnimatePresence mode="wait">
           <motion.div
@@ -173,7 +169,6 @@ export default function RecentPostsCarousel({ posts: initialPosts }: { posts: an
         </AnimatePresence>
       </div>
 
-      {/* Mobile Details Box for Active Post */}
       <AnimatePresence mode="wait">
         <motion.div
            key={currentIndex}

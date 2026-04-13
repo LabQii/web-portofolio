@@ -24,7 +24,6 @@ export default function Navbar() {
   const [scrolled, setScrolled] = React.useState(false);
   const [hoveredItem, setHoveredItem] = React.useState<string | null>(null);
 
-  // ── Scroll detection ──────────────────────────────────────────────────────
   React.useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
@@ -52,7 +51,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [pathname]);
 
-  // ── Hash scroll on load ───────────────────────────────────────────────────
   React.useEffect(() => {
     const resolveHashScroll = () => {
       const hash = window.location.hash;
@@ -84,11 +82,9 @@ export default function Navbar() {
     setTimeout(resolveHashScroll, 50);
   }, [pathname]);
 
-  // ── Guard ─────────────────────────────────────────────────────────────────
   if (pathname.startsWith("/admin") || pathname.startsWith("/login"))
     return null;
 
-  // ── Helpers ───────────────────────────────────────────────────────────────
   const getIsActive = (item: { href: string }) => {
     if (pathname === "/") {
       if (item.href === "/") return activeSection === "profile";
@@ -140,7 +136,6 @@ export default function Navbar() {
     }
   };
 
-  // ── Render ────────────────────────────────────────────────────────────────
   return (
     <>
       <nav
@@ -155,7 +150,6 @@ export default function Navbar() {
         <div className="w-full mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <div className="flex h-20 items-center justify-between">
 
-            {/* Logo */}
             <Link
               href="/"
               className="flex items-center gap-2.5 text-[22px] font-bold tracking-tight text-primary group"
@@ -172,20 +166,15 @@ export default function Navbar() {
               <span>Labqii</span>
             </Link>
 
-            {/* ── Desktop Nav ───────────────────────────────────────────── */}
             <div className="hidden md:flex items-center">
-              {/* Magic Pill nav list */}
+              
               <div
                 className="relative flex items-center ml-10"
                 onMouseLeave={() => setHoveredItem(null)}
               >
                 {navItems.map((item) => {
                   const isActive = getIsActive(item);
-                  // Pill shows on this item when:
-                  //   a) it's being hovered, OR
-                  //   b) it's the active item AND nothing is hovered
-                  // → guarantees exactly ONE pill in the DOM at any time
-                  //   so layoutId can slide it smoothly
+
                   const showPill =
                     hoveredItem === item.name ||
                     (isActive && hoveredItem === null);
@@ -204,7 +193,7 @@ export default function Navbar() {
                           : "text-slate-500 dark:text-slate-400"
                       )}
                     >
-                      {/* Single pill — always same color so no color flash during slide */}
+                      
                       {showPill && (
                         <motion.span
                           layoutId="nav-pill"
@@ -224,14 +213,12 @@ export default function Navbar() {
                   );
                 })}
 
-                {/* Divider + Theme toggle */}
                 <div className="ml-3 pl-3 border-l border-slate-300 dark:border-slate-600 flex items-center h-8">
                   <ThemeToggle />
                 </div>
               </div>
             </div>
 
-            {/* ── Mobile controls ───────────────────────────────────────── */}
             <div className="md:hidden flex items-center gap-2">
               <ThemeToggle />
               <button
@@ -267,7 +254,6 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* ── Mobile Menu ──────────────────────────────────────────────────── */}
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
@@ -310,7 +296,6 @@ export default function Navbar() {
         </AnimatePresence>
       </nav>
 
-      {/* Spacer */}
       <div className="h-20" />
     </>
   );

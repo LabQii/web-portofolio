@@ -26,7 +26,7 @@ export default function AdminSidebar({ profileImage }: AdminSidebarProps) {
 
   return (
     <aside className="w-[220px] bg-white border-r border-[#e2e8f0] flex flex-col h-full shrink-0 z-10">
-      {/* Profile Card */}
+      
       <div className="px-4 py-5 border-b border-[#e2e8f0]">
         <div className="flex items-center gap-3">
           <div className="relative w-9 h-9 rounded-lg overflow-hidden border border-[#e2e8f0] bg-slate-50 shrink-0 flex items-center justify-center p-1 shadow-sm">
@@ -44,7 +44,6 @@ export default function AdminSidebar({ profileImage }: AdminSidebarProps) {
         </div>
       </div>
 
-      {/* Nav */}
       <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-0.5">
         {navItems.map((item) => {
           const isActive = pathname === item.href || (item.href !== "/admin" && pathname.startsWith(item.href));

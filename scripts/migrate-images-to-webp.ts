@@ -1,16 +1,4 @@
-/**
- * scripts/migrate-images-to-webp.ts
- *
- * Migrasi URL gambar lama di database ke format WebP via Cloudinary URL transformation.
- *
- * CARA KERJA:
- *   - Tidak mengubah file di Cloudinary storage sama sekali
- *   - Hanya menambahkan parameter transformasi ke URL yang tersimpan di database
- *   - Cloudinary otomatis deliver WebP saat URL diakses
- *
- * JALANKAN:
- *   npx tsx scripts/migrate-images-to-webp.ts
- */
+
 
 import { PrismaClient } from "@prisma/client";
 
@@ -19,7 +7,7 @@ const prisma = new PrismaClient();
 function optimizeUrl(url: string, transform: string): string {
   if (!url) return url;
   if (!url.includes("res.cloudinary.com")) return url;
-  if (url.includes("f_webp") || url.includes("f_auto")) return url; // already optimized
+  if (url.includes("f_webp") || url.includes("f_auto")) return url;
   return url.replace("/upload/", `/upload/${transform}/`);
 }
 

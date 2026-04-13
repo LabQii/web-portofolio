@@ -33,18 +33,15 @@ export async function createProject(formData: FormData) {
     slug = generateSlug(title);
   }
 
-  // Ensure slug is unique in the database to prevent Prisma constraint errors
   const existingProject = await prisma.project.findUnique({ where: { slug } });
   if (existingProject) {
     slug = `${slug}-${randomBytes(3).toString("hex")}`;
   }
 
-  // Thumbnail and images are already uploaded to Cloudinary by the client via /api/upload
   const thumbnailUrl = (formData.get("thumbnailUrl") as string) || "";
   const imageUrlsRaw = formData.get("imageUrls") as string;
   const images = imageUrlsRaw ? imageUrlsRaw.split(",").filter(Boolean) : [];
 
-  // Get latest order for new projects
   const lastProject = await prisma.project.findFirst({
     orderBy: { order: "desc" },
   });
@@ -89,7 +86,6 @@ export async function updateProject(id: string, formData: FormData) {
 
   const existing = await prisma.project.findUnique({ where: { id } });
 
-  // Thumbnail and images are already uploaded to Cloudinary by the client via /api/upload
   const thumbnailUrl = (formData.get("thumbnailUrl") as string) || existing?.thumbnail || "";
   const imageUrlsRaw = formData.get("imageUrls") as string;
   const images = imageUrlsRaw ? imageUrlsRaw.split(",").filter(Boolean) : (existing?.images ?? []);

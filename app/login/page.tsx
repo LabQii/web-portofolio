@@ -34,13 +34,12 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden bg-hero-gradient">
-      {/* Background Pattern */}
+      
       <div
         className="absolute inset-0 pointer-events-none batik-overlay opacity-[0.02]"
         style={{ backgroundColor: "#1a3a5c" }}
       ></div>
 
-      {/* Login Card */}
       <div className="w-full max-w-[440px] bg-white rounded-[32px] shadow-2xl shadow-slate-900/10 p-10 md:p-12 relative z-10">
         <div className="text-center mb-10">
           <h1 className="text-3xl font-extrabold text-slate-800 tracking-tight mb-2">Admin Login</h1>
@@ -48,7 +47,7 @@ export default function LoginPage() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Email Field */}
+          
           <div className="space-y-2">
             <label htmlFor="email" className="block text-[11px] font-bold tracking-widest text-slate-600 uppercase">
               Email Address
@@ -69,7 +68,6 @@ export default function LoginPage() {
             </div>
           </div>
 
-          {/* Password Field */}
           <div className="space-y-2">
             <label htmlFor="password" className="block text-[11px] font-bold tracking-widest text-slate-600 uppercase">
               Password
@@ -90,14 +88,12 @@ export default function LoginPage() {
             </div>
           </div>
 
-          {/* Error Message */}
           {error && (
             <div className="text-[13px] font-medium text-rose-600 bg-rose-50 rounded-lg p-4">
               {error}
             </div>
           )}
 
-          {/* Submit Button */}
           <div className="pt-2">
             <button
               type="submit"

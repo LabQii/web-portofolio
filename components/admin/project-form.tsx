@@ -72,14 +72,13 @@ export default function ProjectForm({ project, action, submitLabel = "Save Proje
 
     startTransition(async () => {
       try {
-        // -- 1. Upload thumbnail if a new file was selected --
+
         let finalThumbnailUrl = project?.thumbnail || "";
         if (thumbnailFile) {
           setUploadProgress("Uploading thumbnail...");
           finalThumbnailUrl = await uploadFile(thumbnailFile, "portfolio/projects");
         }
 
-        // -- 2. Upload new gallery images one by one --
         const uploadedUrls: string[] = [];
         for (let i = 0; i < newImages.length; i++) {
           setUploadProgress(`Uploading image ${i + 1} of ${newImages.length}...`);
@@ -89,15 +88,14 @@ export default function ProjectForm({ project, action, submitLabel = "Save Proje
 
         setUploadProgress("Saving project...");
 
-        // -- 3. Build a text-only FormData (no File objects) --
         const formData = new FormData(formEl);
         formData.set("tags", tags.join(","));
         formData.set("techStack", techStack.join(","));
         formData.set("featured", featured ? "on" : "");
-        // Pass thumbnail as resolved URL
+
         formData.delete("thumbnail");
         formData.set("thumbnailUrl", finalThumbnailUrl);
-        // Pass image URLs as comma-separated string
+
         formData.delete("images");
         const allImageUrls = [...existingImages, ...uploadedUrls];
         formData.set("imageUrls", allImageUrls.join(","));
@@ -122,23 +120,20 @@ export default function ProjectForm({ project, action, submitLabel = "Save Proje
   return (
     <>
       <form onSubmit={handleSubmit} className="space-y-5" encType="multipart/form-data">
-        {/* Title + Slug */}
+        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div><label className={label}>Title *</label><input id="title" name="title" defaultValue={project?.title} onChange={generateSlug} required placeholder="My Awesome Project" className={cls} /></div>
           <div><label className={label}>Slug *</label><input id="slug" name="slug" defaultValue={project?.slug} required placeholder="my-awesome-project" className={cls} /></div>
         </div>
 
-        {/* Short Description */}
         <div><label className={label}>Short Description *</label><input id="description" name="description" defaultValue={project?.description} required placeholder="A brief one-line summary" className={cls} /></div>
 
-        {/* Full Description */}
         <div>
           <label className={label}>Full Description</label>
           <textarea id="content" name="content" defaultValue={project?.content ?? ""} rows={6} placeholder="Detailed description, challenges, solutions..." className={`${cls} resize-vertical min-h-[160px]`} />
           <p className="text-[12px] text-[#94a3b8] mt-1.5">Markdown is supported for formatting.</p>
         </div>
 
-        {/* Category + Featured toggle */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div>
             <label className={label}>Category *</label>
@@ -159,14 +154,12 @@ export default function ProjectForm({ project, action, submitLabel = "Save Proje
           </div>
         </div>
 
-        {/* Demo + Video + GitHub URLs */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           <div><label className={label}>Demo URL</label><input id="demoUrl" name="demoUrl" type="url" defaultValue={project?.demoUrl ?? ""} placeholder="https://..." className={cls} /></div>
           <div><label className={label}>YouTube Video URL</label><input id="videoUrl" name="videoUrl" type="url" defaultValue={project?.videoUrl ?? ""} placeholder="https://youtube.com/..." className={cls} /></div>
           <div><label className={label}>GitHub URL</label><input id="githubUrl" name="githubUrl" type="url" defaultValue={project?.githubUrl ?? ""} placeholder="https://github.com/..." className={cls} /></div>
         </div>
 
-        {/* Tags */}
         <div>
           <label className={label}>Tags</label>
           <div className="border border-[#e2e8f0] rounded-lg px-3 py-2 min-h-[44px] flex flex-wrap gap-2 items-center focus-within:border-[#1e293b] focus-within:shadow-[0_0_0_3px_rgba(30,41,59,0.08)] transition-all">
@@ -186,7 +179,6 @@ export default function ProjectForm({ project, action, submitLabel = "Save Proje
           </div>
         </div>
 
-        {/* Tech Stack */}
         <div>
           <label className={label}>Tech Stack</label>
           <div className="border border-[#e2e8f0] rounded-lg px-3 py-2 min-h-[44px] flex flex-wrap gap-2 items-center focus-within:border-[#1e293b] focus-within:shadow-[0_0_0_3px_rgba(30,41,59,0.08)] transition-all">
@@ -206,7 +198,6 @@ export default function ProjectForm({ project, action, submitLabel = "Save Proje
           </div>
         </div>
 
-        {/* Thumbnail */}
         <div>
           <label className={label}>Project Thumbnail (Cover) *</label>
           <div className="border-2 border-dashed border-[#cbd5e1] rounded-xl overflow-hidden hover:border-[#1e293b] hover:bg-[#f8fafc] transition-all cursor-pointer relative group">
@@ -226,7 +217,6 @@ export default function ProjectForm({ project, action, submitLabel = "Save Proje
           </div>
         </div>
 
-        {/* Gallery Images */}
         <div>
           <label className={label}>Gallery Images (Optional)</label>
           <div className="border-2 border-dashed border-[#cbd5e1] rounded-xl p-4 hover:border-[#1e293b] hover:bg-[#f8fafc] transition-all relative">
@@ -272,7 +262,6 @@ export default function ProjectForm({ project, action, submitLabel = "Save Proje
           )}
         </div>
 
-        {/* Actions */}
         <div className="flex justify-end gap-3 pt-2">
           <button type="button" onClick={() => router.push("/admin/projects")} disabled={isPending} className="px-5 py-[10px] text-[14px] font-medium text-[#64748b] bg-white border border-[#e2e8f0] rounded-lg hover:bg-slate-50 transition-colors disabled:opacity-50">Cancel</button>
           <button type="submit" disabled={isPending} className="px-5 py-[10px] text-[14px] font-medium text-white bg-[#1e293b] hover:bg-[#0f172a] rounded-lg transition-colors disabled:opacity-50 flex items-center gap-2 min-w-[140px] justify-center">

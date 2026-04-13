@@ -66,12 +66,11 @@ export async function deleteProfileImage(id: string) {
 
 export async function setActiveProfileImage(id: string) {
   try {
-    // Deactivate all first
+
     await prisma.profileImage.updateMany({
       data: { isActive: false },
     });
-    
-    // Set target as active
+
     await prisma.profileImage.update({
       where: { id },
       data: { isActive: true },

@@ -17,11 +17,10 @@ export default function CategoryTabs({ categories, activeCategory }: CategoryTab
   const initialQuery = searchParams.get("q") || "";
   const [query, setQuery] = useState(initialQuery);
 
-  // Update URL on search change with debounce
   useEffect(() => {
     const handler = setTimeout(() => {
       const currentQ = searchParams.get("q") || "";
-      if (query === currentQ) return; // Prevent infinite re-rendering
+      if (query === currentQ) return;
 
       const current = new URLSearchParams(Array.from(searchParams.entries()));
       if (query) {
@@ -29,7 +28,7 @@ export default function CategoryTabs({ categories, activeCategory }: CategoryTab
       } else {
         current.delete("q");
       }
-      // maintain the category if it exists
+
       const search = current.toString();
       const queryStr = search ? `?${search}` : "";
       router.push(`/projects${queryStr}`);
@@ -41,7 +40,7 @@ export default function CategoryTabs({ categories, activeCategory }: CategoryTab
   return (
     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-12 border-b border-slate-200 dark:border-slate-700 pb-0">
       <div className="flex flex-wrap gap-2 w-full sm:w-auto">
-        {/* "All" Tab */}
+        
         <Link 
           href="/projects" 
           className="relative px-4 pt-2 pb-4 text-sm font-semibold rounded-t-lg transition-colors duration-200 hover:bg-slate-50 dark:hover:bg-slate-800/50 text-slate-600 dark:text-slate-400"
@@ -57,7 +56,6 @@ export default function CategoryTabs({ categories, activeCategory }: CategoryTab
           )}
         </Link>
 
-        {/* Dynamic Tabs */}
         {categories.map((cat) => {
           const isActive = activeCategory === cat;
           return (
@@ -80,7 +78,6 @@ export default function CategoryTabs({ categories, activeCategory }: CategoryTab
         })}
       </div>
 
-      {/* Minimalism Search Input */}
       <div className="relative group w-full mb-3 sm:w-auto pb-0 sm:pb-0">
         <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-accent transition-colors">
           <Search className="w-4 h-4" />

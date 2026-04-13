@@ -7,16 +7,12 @@ export default function PageLoader() {
   const [isExiting, setIsExiting] = useState(false);
   const [isDark, setIsDark] = useState(false);
 
-  // Detect theme from .dark class on <html> (not from prefers-color-scheme)
-  // This ensures light mode is default on first visit, 
-  // only going dark if the user has actively enabled it.
   useEffect(() => {
     const checkTheme = () => {
       setIsDark(document.documentElement.classList.contains("dark"));
     };
     checkTheme();
 
-    // Watch for theme changes while loader is visible
     const observer = new MutationObserver(checkTheme);
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
     return () => observer.disconnect();
@@ -29,7 +25,7 @@ export default function PageLoader() {
 
     const unmountTimer = setTimeout(() => {
       setIsLoading(false);
-    }, 1000); // 600ms wait + 400ms transition
+    }, 1000);
 
     return () => {
       clearTimeout(exitTimer);
@@ -65,7 +61,7 @@ export default function PageLoader() {
           justifyContent: "center",
         }}
       >
-        {/* Brand icon with pulse */}
+        
         <img
           src="/images/icon-li.png"
           alt="Logo"
@@ -80,7 +76,6 @@ export default function PageLoader() {
           }}
         />
 
-        {/* Arc spinner SVG */}
         <svg
           viewBox="0 0 80 80"
           style={{
@@ -103,7 +98,6 @@ export default function PageLoader() {
           />
         </svg>
 
-        {/* Subtle outer glow ring (static, thin) */}
         <svg
           viewBox="0 0 80 80"
           style={{

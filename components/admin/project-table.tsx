@@ -17,7 +17,6 @@ export default function AdminProjectTable({ projects: initialProjects }: { proje
   const [items, setItems] = useState(initialProjects);
   const [isUpdating, setIsUpdating] = useState(false);
 
-  // Keep local state in sync with props
   useEffect(() => {
     setItems(initialProjects);
   }, [initialProjects]);
@@ -30,7 +29,7 @@ export default function AdminProjectTable({ projects: initialProjects }: { proje
       success("Order updated successfully");
     } catch (err) {
       toastError("Failed to update order");
-      // Revert on error
+
       setItems(initialProjects);
     } finally {
       setIsUpdating(false);
@@ -110,7 +109,7 @@ export default function AdminProjectTable({ projects: initialProjects }: { proje
                 <button
                   onClick={async () => {
                     const newFeatured = !project.featured;
-                    // Optimistic update
+
                     setItems(items.map(p => p.id === project.id ? { ...p, featured: newFeatured } : p));
                     try {
                       const { toggleProjectFeatured } = await import("@/app/actions/project-actions");
@@ -118,7 +117,7 @@ export default function AdminProjectTable({ projects: initialProjects }: { proje
                       success(`Project ${newFeatured ? "marked as featured" : "removed from featured"}`);
                     } catch (err) {
                       toastError("Failed to update featured status");
-                      // Revert
+
                       setItems(items);
                     }
                   }}

@@ -3,7 +3,7 @@ import cloudinary from "@/lib/cloudinary";
 import { getToken } from "next-auth/jwt";
 
 export async function POST(req: NextRequest) {
-  // Verify the user is authenticated
+
   const token = await getToken({ req });
   if (!token) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

@@ -29,7 +29,7 @@ export async function createOrUpdateTechStack(formData: FormData) {
       if (file.size > 5 * 1024 * 1024) {
         return { success: false, error: "Logo file size must be less than 5MB" };
       }
-      // Convert file to base64 for Cloudinary
+
       const arrayBuffer = await file.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
       const base64File = `data:${file.type};base64,${buffer.toString("base64")}`;
@@ -64,8 +64,7 @@ export async function deleteTechStack(id: string) {
     const techStack = await prisma.techStack.findUnique({
       where: { id }
     });
-    
-    // Attempt to delete from Cloudinary if it has a custom logo
+
     if (techStack?.customLogoUrl && techStack.customLogoUrl.includes("cloudinary.com")) {
       try {
         const publicIdMatch = techStack.customLogoUrl.match(/\/v\d+\/(portfolio\/tech-stacks\/[^\.]+)/);

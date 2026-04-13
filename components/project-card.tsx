@@ -24,7 +24,6 @@ export default function ProjectCard({
   const containerRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  // Function to extract YouTube ID
   const getYoutubeId = (url: string) => {
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
     const match = url.match(regExp);
@@ -33,7 +32,6 @@ export default function ProjectCard({
 
   const videoId = project.videoUrl ? getYoutubeId(project.videoUrl) : null;
 
-  // Logic to handle tech stack overflow
   useLayoutEffect(() => {
     if (!containerRef.current) return;
 
@@ -42,25 +40,24 @@ export default function ProjectCard({
       if (!container) return;
       
       const children = Array.from(container.children) as HTMLElement[];
-      if (children.length < 2) return; // Need at least category + 1 tech
+      if (children.length < 2) return;
 
       const containerWidth = container.offsetWidth;
       const categoryBadge = children[0];
-      let currentWidth = categoryBadge.offsetWidth + 12; // category + gap
+      let currentWidth = categoryBadge.offsetWidth + 12;
       
       let count = 0;
-      const badgeWidth = 45; // Width for +N badge
+      const badgeWidth = 45;
       const totalTechItems = project.techStack.length;
 
-      // Reset hidden state temporarily for measurement
       children.forEach((child, i) => {
         if (i > 0 && i <= totalTechItems) {
-          child.style.display = 'flex'; // Ensure it's measurable
+          child.style.display = 'flex';
         }
       });
 
       for (let i = 0; i < totalTechItems; i++) {
-        const item = children[i + 1]; // items start at index 1
+        const item = children[i + 1];
         if (!item) continue;
         
         const itemWidth = item.offsetWidth + 12;
@@ -73,7 +70,6 @@ export default function ProjectCard({
         count++;
       }
 
-      // Re-apply hidden state only if needed
       children.forEach((child, i) => {
         if (i > 0 && i <= totalTechItems) {
           child.style.display = (i - 1) < count ? 'flex' : 'none';
@@ -86,7 +82,7 @@ export default function ProjectCard({
     calculateOverflow();
     
     const resizeObserver = new ResizeObserver(() => {
-      // Small delay or rAF to avoid "ResizeObserver loop limit exceeded"
+
       requestAnimationFrame(calculateOverflow);
     });
     
@@ -154,7 +150,6 @@ export default function ProjectCard({
           )}
         </div>
 
-        {/* Right Side: Details */}
         <div className="flex-1 pt-2 overflow-hidden w-full">
           <Link href={`/projects/${project.slug}`}>
             <h3 className="text-[28px] font-bold text-primary mb-4 leading-[1.3] group-hover:text-accent transition-colors">
@@ -162,13 +157,11 @@ export default function ProjectCard({
             </h3>
           </Link>
 
-          {/* Row of Category + Tech Stack */}
           <div ref={containerRef} className="flex flex-nowrap items-center gap-3 mb-6 overflow-hidden w-full">
             <Badge variant="secondary" className="bg-navy text-white hover:bg-navy/90 dark:bg-slate-100 dark:text-navy dark:hover:bg-white border-transparent font-semibold rounded-xl px-4 py-1.5 text-[14px] shrink-0 transition-all duration-300">
               {project.category}
             </Badge>
 
-            {/* Tech Stack items in the same row */}
             {project.techStack.map((tech: string, i: number) => {
               const logoDetails = getTechLogoDetails(tech, customTechLogos);
               const isVisible = i < visibleCount;

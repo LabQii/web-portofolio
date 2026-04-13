@@ -21,16 +21,13 @@ export default async function AdminDashboard() {
   return (
     <div className="w-full max-w-[1400px] mx-auto p-4 sm:p-8 space-y-10 pb-20">
 
-      {/* Header Section */}
       <div>
         <AdminBreadcrumb items={[{ label: "Admin", href: "/admin" }, { label: "Dashboard" }]} />
         <p className="text-[22px] text-slate-500">Welcome back, <span className="font-semibold text-slate-700">{session.user?.email}</span></p>
       </div>
 
-
-      {/* Stats Row */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {/* Stat 1 */}
+        
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col justify-between h-[160px]">
           <div className="flex justify-between items-start">
             <div className="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
@@ -44,7 +41,6 @@ export default async function AdminDashboard() {
           </div>
         </div>
 
-        {/* Stat 2 */}
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col justify-between h-[160px]">
           <div className="flex justify-between items-start">
             <div className="w-10 h-10 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center">
@@ -58,7 +54,6 @@ export default async function AdminDashboard() {
           </div>
         </div>
 
-        {/* Stat 3 */}
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col justify-between h-[160px]">
           <div className="flex justify-between items-start">
             <div className="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
@@ -72,7 +67,6 @@ export default async function AdminDashboard() {
           </div>
         </div>
 
-        {/* Stat 4 */}
         <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col justify-between h-[160px]">
           <div className="flex justify-between items-start">
             <div className="w-10 h-10 rounded-lg bg-rose-50 text-rose-500 flex items-center justify-center">
@@ -87,7 +81,6 @@ export default async function AdminDashboard() {
         </div>
       </div>
 
-      {/* Quick Actions */}
       <div>
         <h4 className="text-[11px] font-bold tracking-widest text-slate-500 uppercase mb-4">Quick Actions</h4>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -124,9 +117,8 @@ export default async function AdminDashboard() {
         </div>
       </div>
 
-      {/* Tables Row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-4">
-        {/* Recent Projects Table */}
+        
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-extrabold text-slate-900">Recent Projects</h2>
@@ -171,7 +163,6 @@ export default async function AdminDashboard() {
           </div>
         </div>
 
-        {/* Recent Posts Table */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-extrabold text-slate-900">Recent Posts</h2>

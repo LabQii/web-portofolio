@@ -19,10 +19,10 @@ export async function uploadCV(formData: FormData) {
   const buffer = Buffer.from(await file.arrayBuffer());
 
   try {
-    // Sanitize filename for public_id
+
     const sanitizedName = file.name
-      .replace(/\.[^/.]+$/, "") // Remove extension
-      .replace(/[^a-z0-t0-9]/gi, "_") // Replace non-alphanumeric with underscore
+      .replace(/\.[^/.]+$/, "")
+      .replace(/[^a-z0-t0-9]/gi, "_")
       .toLowerCase();
     
     const timestamp = Date.now();
@@ -44,13 +44,11 @@ export async function uploadCV(formData: FormData) {
 
     const fileUrl = uploadResult.secure_url;
 
-    // Set all existing CVs to inactive
     await prisma.cV.updateMany({
       where: {},
       data: { isActive: false },
     });
 
-    // Create the new CV and set it as active
     await prisma.cV.create({
       data: { fileUrl, fileName: file.name, isActive: true },
     });
@@ -92,7 +90,7 @@ export async function deleteCV(id: string, fileUrl: string) {
       try {
         await cloudinary.uploader.destroy(publicId, { resource_type: "raw" });
       } catch (e) {
-        // ignore
+
       }
     }
 
@@ -113,8 +111,7 @@ export async function renameCV(id: string, newName: string) {
     if (!newName.trim()) {
       return { success: false, error: "Name cannot be empty" };
     }
-    
-    // Ensure it has .pdf extension
+
     let finalName = newName.trim();
     if (!finalName.toLowerCase().endsWith(".pdf")) {
       finalName += ".pdf";

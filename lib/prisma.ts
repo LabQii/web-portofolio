@@ -12,11 +12,9 @@ function createPrismaClient() {
     globalForPrisma.pool ??
     new Pool({
       connectionString: process.env.DATABASE_URL,
-      max: 10, // limit pool size to stay within PgBouncer's transaction-mode capacity
+      max: 10,
     });
 
-  // Cache the pool globally in all environments to avoid creating new pools
-  // on every module reload (hot reload in dev, serverless cold starts in prod)
   globalForPrisma.pool = pool;
 
   const adapter = new PrismaPg(pool);
@@ -25,5 +23,4 @@ function createPrismaClient() {
 
 export const prisma = globalForPrisma.prisma ?? createPrismaClient();
 
-// Cache the client globally in all environments
 globalForPrisma.prisma = prisma;

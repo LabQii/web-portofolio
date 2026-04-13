@@ -69,7 +69,6 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 
   if (!project) notFound();
 
-  // Calculate next project
   const currentIndex = allProjects.findIndex(p => p.slug === slug);
   const nextProject = allProjects.length > 1 
     ? allProjects[(currentIndex + 1) % allProjects.length] 
@@ -111,7 +110,6 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
             <ProjectGallery images={allImages} />
           </div>
 
-          {/* Links */}
           <div className="flex flex-wrap gap-4 mb-12">
             {project.demoUrl && (
               <Button asChild className="bg-navy hover:bg-navy/90 dark:bg-slate-50 dark:text-navy dark:hover:bg-slate-100 text-white rounded-xl px-7 h-11 shadow-md transition-all duration-300 active:scale-[0.98]">
@@ -141,10 +139,8 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
             )}
           </div>
 
-          {/* Main Content Layout */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
 
-            {/* Left Column: Tech Stack */}
             <div className="md:col-span-1">
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-8 h-1 bg-accent rounded-full"></div>
@@ -175,7 +171,6 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
               </div>
             </div>
 
-            {/* Right Column: About Content */}
             <div className="md:col-span-2">
               <div className="bg-surface rounded-2xl p-6 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800 mt-1">
                 <div className="flex items-center gap-4 mb-6">
@@ -194,11 +189,9 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 
           </div>
 
-          {/* Discover More: Next Project & Contact */}
           <div className="mt-16 border-t border-slate-100 dark:border-slate-800 pt-12">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              
-              {/* Next Project Link */}
+
               {nextProject && (
                 <Link 
                   href={`/projects/${nextProject.slug}`}
@@ -220,8 +213,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
                       Explore Project <ArrowRight className="w-4 h-4 text-accent" />
                     </div>
                   </div>
-                  
-                  {/* Subtle Background Image Hint */}
+
                   <div className="absolute top-0 right-0 w-1/2 h-full opacity-[0.05] group-hover:opacity-[0.12] transition-opacity">
                      <Image 
                         src={nextProject.thumbnail} 
@@ -233,7 +225,6 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
                 </Link>
               )}
 
-              {/* Contact Me Card */}
               <div className="rounded-3xl bg-navy dark:bg-[#1a356e] p-8 text-white relative overflow-hidden group border border-white/10 dark:border-white/20 shadow-lg transition-transform duration-300 hover:-translate-y-1">
                 <div className="relative z-10 flex flex-col h-full justify-between">
                   <div>
@@ -258,8 +249,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
                     </Button>
                   </div>
                 </div>
-                
-                {/* Decorative Element */}
+
                 <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-white/5 dark:bg-white/10 rounded-full blur-3xl group-hover:bg-accent/30 transition-colors duration-500" />
               </div>
 

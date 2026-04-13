@@ -21,7 +21,6 @@ export default function UsersPage() {
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const { data: session } = useSession() || {};
 
-  // Form state
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -53,14 +52,13 @@ export default function UsersPage() {
     setEmail(admin.email);
     setPassword("");
     setConfirmPassword("");
-    // Scroll to form on mobile
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Validation
+
     if (!email.trim()) {
       toastError("Email is required.");
       return;
@@ -138,7 +136,7 @@ export default function UsersPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-        {/* Left Column: Form */}
+        
         <div className="bg-white rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.06),0_4px_16px_rgba(0,0,0,0.04)] overflow-hidden transition-all duration-300">
           <div className="flex justify-between items-center py-1 px-[28px_32px] pt-7 border-l-[3px] border-[#1e293b]">
             <h2 className="text-[15px] font-semibold text-[#0f172a] pl-3">
@@ -231,7 +229,6 @@ export default function UsersPage() {
           </div>
         </div>
 
-        {/* Right Column: List */}
         <div className="bg-white rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.06),0_4px_16px_rgba(0,0,0,0.04)] overflow-hidden self-stretch flex flex-col">
           <div className="border-l-[3px] border-[#1e293b] py-1 px-[28px_32px] pt-7">
             <h2 className="text-[15px] font-semibold text-[#0f172a] pl-3">Active Administrators</h2>

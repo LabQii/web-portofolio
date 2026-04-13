@@ -27,7 +27,7 @@ function TimelineCard({ item }: { item: Experience }) {
         aria-hidden="true"
       />
       <div className="relative z-10">
-        {/* Top row */}
+        
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
           <span className="text-xs px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-600 border dark:border-slate-500 text-primary dark:text-slate-100 font-semibold">
             {item.category}
@@ -38,20 +38,16 @@ function TimelineCard({ item }: { item: Experience }) {
           </span>
         </div>
 
-        {/* Title */}
         <h3 className="text-xl font-bold text-primary mb-1">{item.title}</h3>
 
-        {/* Organization */}
         <p className="text-sm font-semibold mb-3 text-accent">
           {item.organization}
         </p>
 
-        {/* Description */}
         <p className="text-muted text-sm leading-relaxed mb-4">
           {item.description}
         </p>
 
-        {/* Tags */}
         <div className="flex flex-wrap gap-2">
           {item.tags.map((tag: string) => (
             <span
@@ -87,7 +83,7 @@ function TimelineNode({ featured }: { featured: boolean }) {
 export default function ExperienceTimeline({ experiences }: { experiences: Experience[] }) {
   return (
     <div className="relative">
-      {/* Vertical center line — desktop only */}
+      
       <div
         className="hidden md:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2"
         style={{
@@ -98,7 +94,6 @@ export default function ExperienceTimeline({ experiences }: { experiences: Exper
         aria-hidden="true"
       />
 
-      {/* Vertical left line — mobile only */}
       <div
         className="block md:hidden absolute left-5 top-0 bottom-0"
         style={{
@@ -124,29 +119,26 @@ export default function ExperienceTimeline({ experiences }: { experiences: Exper
               transition={{ duration: 0.55, ease: "easeOut", delay: index * 0.1 }}
               className="relative"
             >
-              {/* Desktop: alternating layout */}
+              
               <div className="hidden md:grid md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-6">
-                {/* Left slot */}
+                
                 <div className={isLeft ? "flex justify-end" : ""}>
                   {isLeft && <div className="w-full max-w-[440px]"><TimelineCard item={item} /></div>}
                 </div>
 
-                {/* Center node */}
                 <TimelineNode featured={item.featured} />
 
-                {/* Right slot */}
                 <div className={!isLeft ? "flex justify-start" : ""}>
                   {!isLeft && <div className="w-full max-w-[440px]"><TimelineCard item={item} /></div>}
                 </div>
               </div>
 
-              {/* Mobile: all cards on right of left line */}
               <div className="flex md:hidden items-start gap-4 pl-2">
-                {/* Node pinned to left */}
+                
                 <div className="flex-shrink-0 relative z-10">
                   <TimelineNode featured={item.featured} />
                 </div>
-                {/* Card */}
+                
                 <div className="flex-1 min-w-0">
                   <TimelineCard item={item} />
                 </div>

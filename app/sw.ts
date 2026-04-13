@@ -1,4 +1,4 @@
-/// <reference types="@serwist/next/typings" />
+
 import { defaultCache } from "@serwist/next/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
 import { Serwist } from "serwist";
