@@ -10,7 +10,7 @@ import DesktopProjectList from "@/components/desktop-project-list";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
-export const revalidate = 3600; // Revalidate every hour
+export const revalidate = 0; // Always fetch latest data
 
 export default async function Home() {
   const [
