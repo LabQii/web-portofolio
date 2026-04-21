@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Music } from "lucide-react";
 
 export default function PageLoader() {
   const [isLoading, setIsLoading] = useState(true);
@@ -22,7 +21,7 @@ export default function PageLoader() {
   useEffect(() => {
     const exitTimer = setTimeout(() => {
       setIsExiting(true);
-    }, 800); // slightly longer to let progress finish smoothly
+    }, 800);
 
     const unmountTimer = setTimeout(() => {
       setIsLoading(false);
@@ -45,10 +44,8 @@ export default function PageLoader() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        flexDirection: "column",
-        gap: "24px",
         backgroundColor: isDark ? "#0f172a" : "#ffffff",
-        transition: "opacity 0.4s ease, transform 0.4s ease",
+        transition: "opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
         opacity: isExiting ? 0 : 1,
         transform: isExiting ? "scale(1.05)" : "scale(1)",
         pointerEvents: isExiting ? "none" : "all",
@@ -57,144 +54,78 @@ export default function PageLoader() {
       <div
         style={{
           position: "relative",
-          width: 130,
-          height: 130,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
         }}
       >
-        {/* Glow behind the logo */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            borderRadius: "50%",
-            background: isDark ? "rgba(96, 165, 250, 0.2)" : "rgba(30, 58, 95, 0.1)",
-            filter: "blur(20px)",
-            animation: "loader-glow 2s ease-in-out infinite",
-          }}
-        />
+        {/* Sound Wave Ripples */}
+        <div className="wave-circle" style={{ 
+          borderColor: isDark ? "rgba(96, 165, 250, 0.6)" : "rgba(30, 58, 95, 0.4)",
+          animationDelay: "0s" 
+        }} />
+        <div className="wave-circle" style={{ 
+          borderColor: isDark ? "rgba(96, 165, 250, 0.4)" : "rgba(30, 58, 95, 0.25)",
+          animationDelay: "0.5s" 
+        }} />
+        <div className="wave-circle" style={{ 
+          borderColor: isDark ? "rgba(96, 165, 250, 0.2)" : "rgba(30, 58, 95, 0.1)",
+          animationDelay: "1s" 
+        }} />
 
-        {/* Orbiting Musical Notes */}
-        {[0, 120, 240].map((deg, i) => (
-          <div
-            key={i}
-            style={{
-              position: "absolute",
-              top: '50%',
-              left: '50%',
-              width: 24,
-              height: 24,
-              marginTop: -12,
-              marginLeft: -12,
-              animation: `orbit-${deg} 3s linear infinite`,
-              color: isDark ? "#38bdf8" : "#0ea5e9", // match progress bar
-              zIndex: 2,
-              opacity: 0.85,
-              filter: isDark ? "drop-shadow(0 0 4px rgba(56, 189, 248, 0.5))" : "drop-shadow(0 2px 4px rgba(14, 165, 233, 0.3))",
-            }}
-          >
-            {/* Make the icon pulse slightly for more life */}
-            <Music 
-              style={{ animation: "note-pulse 1.5s ease-in-out infinite alternate" }}
-              size={i === 1 ? 16 : 20} // middle one smaller
-              strokeWidth={2.5} 
-            />
-          </div>
-        ))}
-
-        {/* The main logo */}
-        <img
-          src="/images/icon-li.png"
-          alt="Logo"
-          style={{
-            width: 80,
-            height: 80,
-            objectFit: "contain",
-            animation: "loader-scale 2s cubic-bezier(0.4, 0, 0.2, 1) infinite",
-            position: "relative",
-            zIndex: 1,
-            userSelect: "none",
-            filter: isDark ? "drop-shadow(0 0 8px rgba(255,255,255,0.1))" : "drop-shadow(0 4px 6px rgba(0,0,0,0.1))",
-          }}
-        />
-      </div>
-
-      {/* Progress Bar Container */}
-      <div 
-        style={{
-          width: "140px",
-          height: "3px",
-          background: isDark ? "rgba(255, 255, 255, 0.1)" : "rgba(15, 23, 42, 0.08)",
-          borderRadius: "4px",
-          overflow: "hidden",
+        {/* Logo Container */}
+        <div style={{
           position: "relative",
-          marginTop: "4px",
-        }}
-      >
-        {/* Progress Bar Fill */}
-        <div 
-          style={{
-            height: "100%",
-            background: isDark ? "#38bdf8" : "#0ea5e9", // beautiful light blue/sky color
-            borderRadius: "4px",
-            animation: "progress-fill 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards",
-            transformOrigin: "left",
-          }}
-        />
+          zIndex: 10,
+          background: isDark ? "#1e293b" : "#ffffff",
+          borderRadius: "50%",
+          padding: "14px",
+          boxShadow: isDark ? "0 4px 24px rgba(0,0,0,0.5)" : "0 4px 24px rgba(0,0,0,0.08)",
+          animation: "logo-beat 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite",
+        }}>
+          <img
+            src="/images/icon-li.png"
+            alt="Logo"
+            style={{
+              width: 56,
+              height: 56,
+              objectFit: "contain",
+              userSelect: "none",
+            }}
+          />
+        </div>
       </div>
 
       <style>{`
-        @keyframes loader-scale {
-          0%, 100% { 
-            transform: scale(0.95);
-            opacity: 0.8;
-          }
-          50% { 
-            transform: scale(1.05);
-            opacity: 1;
-          }
+        .wave-circle {
+          position: absolute;
+          width: 84px;
+          height: 84px;
+          border-radius: 50%;
+          border-width: 2px;
+          border-style: solid;
+          opacity: 0;
+          animation: wave-ripple 1.5s cubic-bezier(0.21, 0.53, 0.56, 0.8) infinite;
         }
-        @keyframes loader-glow {
-          0%, 100% { 
-            transform: scale(0.8);
-            opacity: 0.5;
-          }
-          50% { 
-            transform: scale(1.2);
-            opacity: 1;
-          }
-        }
-        @keyframes progress-fill {
+
+        @keyframes wave-ripple {
           0% {
-            transform: scaleX(0);
-          }
-          40% {
-            transform: scaleX(0.4);
-          }
-          80% {
-            transform: scaleX(0.85);
+            transform: scale(0.85);
+            opacity: 1;
           }
           100% {
-            transform: scaleX(1);
+            transform: scale(2.8);
+            opacity: 0;
           }
         }
-        @keyframes note-pulse {
-          0% { transform: scale(0.9) rotate(-10deg); }
-          100% { transform: scale(1.1) rotate(10deg); }
-        }
-        @keyframes orbit-0 {
-          from { transform: rotate(0deg) translateX(70px) rotate(0deg); }
-          to   { transform: rotate(360deg) translateX(70px) rotate(-360deg); }
-        }
-        @keyframes orbit-120 {
-          from { transform: rotate(120deg) translateX(70px) rotate(-120deg); }
-          to   { transform: rotate(480deg) translateX(70px) rotate(-480deg); }
-        }
-        @keyframes orbit-240 {
-          from { transform: rotate(240deg) translateX(70px) rotate(-240deg); }
-          to   { transform: rotate(600deg) translateX(70px) rotate(-600deg); }
+
+        @keyframes logo-beat {
+          0%, 100% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(0.92);
+          }
         }
       `}</style>
     </div>

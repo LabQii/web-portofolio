@@ -11,7 +11,6 @@ import { MusicPlayerButton } from "@/components/music-player-button";
 import MusicHintAlert from "@/components/music-hint-alert";
 import VisitorTracker from "@/components/visitor-tracker";
 import { getProfile } from "@/app/actions/profile";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const font = Poppins({
   subsets: ["latin"],
@@ -99,7 +98,6 @@ export default function RootLayout({
             </div>
           </Providers>
         </ThemeProvider>
-        <SpeedInsights />
       </body>
     </html>
   );

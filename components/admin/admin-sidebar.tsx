@@ -34,7 +34,6 @@ export default function AdminSidebar({ profileImage }: AdminSidebarProps) {
               src={profileImage || "/images/icon-li.png"}
               alt="Profile"
               fill
-              sizes="40px"
               className={cn("object-cover", !profileImage && "object-contain opacity-80")}
             />
           </div>
