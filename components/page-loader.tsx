@@ -21,11 +21,11 @@ export default function PageLoader() {
   useEffect(() => {
     const exitTimer = setTimeout(() => {
       setIsExiting(true);
-    }, 600);
+    }, 800); // slightly longer to let progress finish smoothly
 
     const unmountTimer = setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
+    }, 1200);
 
     return () => {
       clearTimeout(exitTimer);
@@ -44,6 +44,8 @@ export default function PageLoader() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        flexDirection: "column",
+        gap: "24px",
         backgroundColor: isDark ? "#0f172a" : "#ffffff",
         transition: "opacity 0.4s ease, transform 0.4s ease",
         opacity: isExiting ? 0 : 1,
@@ -90,6 +92,29 @@ export default function PageLoader() {
         />
       </div>
 
+      {/* Progress Bar Container */}
+      <div 
+        style={{
+          width: "140px",
+          height: "3px",
+          background: isDark ? "rgba(255, 255, 255, 0.1)" : "rgba(15, 23, 42, 0.08)",
+          borderRadius: "4px",
+          overflow: "hidden",
+          position: "relative",
+        }}
+      >
+        {/* Progress Bar Fill */}
+        <div 
+          style={{
+            height: "100%",
+            background: isDark ? "#38bdf8" : "#0ea5e9", // beautiful light blue/sky color
+            borderRadius: "4px",
+            animation: "progress-fill 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards",
+            transformOrigin: "left",
+          }}
+        />
+      </div>
+
       <style>{`
         @keyframes loader-scale {
           0%, 100% { 
@@ -109,6 +134,20 @@ export default function PageLoader() {
           50% { 
             transform: scale(1.2);
             opacity: 1;
+          }
+        }
+        @keyframes progress-fill {
+          0% {
+            transform: scaleX(0);
+          }
+          40% {
+            transform: scaleX(0.4);
+          }
+          80% {
+            transform: scaleX(0.85);
+          }
+          100% {
+            transform: scaleX(1);
           }
         }
       `}</style>
