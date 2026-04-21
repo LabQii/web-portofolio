@@ -206,7 +206,7 @@ export default function ProjectForm({ project, action, submitLabel = "Save Proje
               if (f) { setThumbnailFile(f); setThumbnail(URL.createObjectURL(f)); }
             }} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" />
             {thumbnail ? (
-              <div className="relative aspect-video"><Image src={thumbnail} alt="Thumbnail preview" fill className="object-cover" /><div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center"><span className="text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity bg-black/60 px-3 py-1.5 rounded-lg">Change Image</span></div></div>
+              <div className="relative aspect-video"><Image src={thumbnail} alt="Thumbnail preview" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" /><div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center"><span className="text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity bg-black/60 px-3 py-1.5 rounded-lg">Change Image</span></div></div>
             ) : (
               <div className="flex flex-col items-center gap-2 text-[#94a3b8] py-10">
                 <Upload className="h-8 w-8" />
@@ -242,7 +242,7 @@ export default function ProjectForm({ project, action, submitLabel = "Save Proje
             <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
               {existingImages.map((src, i) => (
                 <div key={`existing-${i}`} className="relative aspect-video rounded-lg overflow-hidden border border-slate-200 group shadow-sm">
-                  <Image src={src} alt={`Gallery image ${i}`} fill className="object-cover" />
+                  <Image src={src} alt={`Gallery image ${i}`} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
                   <button type="button" onClick={() => removeExistingImage(i)} className="absolute top-1 right-1 bg-red-500 hover:bg-red-600 text-white p-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity z-20">
                     <X className="h-3 w-3" />
                   </button>
@@ -250,7 +250,7 @@ export default function ProjectForm({ project, action, submitLabel = "Save Proje
               ))}
               {newImages.map((img, i) => (
                 <div key={`new-${i}`} className="relative aspect-video rounded-lg overflow-hidden border border-emerald-200 group shadow-sm">
-                  <Image src={img.preview} alt={`New gallery image ${i}`} fill className="object-cover" />
+                  <Image src={img.preview} alt={`New gallery image ${i}`} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
                   <div className="absolute inset-0 border-[2px] border-emerald-400 rounded-lg pointer-events-none"></div>
                   <button type="button" onClick={() => removeNewImage(i)} className="absolute top-1 right-1 bg-red-500 hover:bg-red-600 text-white p-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity z-20">
                     <X className="h-3 w-3" />

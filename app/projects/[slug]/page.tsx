@@ -4,23 +4,12 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import { 
-  ArrowLeft, 
+import {
   ArrowRight,
-  Calendar, 
-  Eye, 
-  Github, 
-  ExternalLink, 
+  Eye,
+  Github,
+  ExternalLink,
   MessageSquare,
-  Code2, 
-  Database, 
-  Layout, 
-  Smartphone, 
-  Server, 
-  Paintbrush, 
-  Globe, 
-  Braces, 
-  Terminal 
 } from "lucide-react";
 import { Metadata } from "next";
 import type { Project, TechStack } from "@prisma/client";
@@ -31,6 +20,7 @@ import TechLogoImage from "@/components/tech-logo-image";
 import VideoDemoButton from "@/components/video-demo-button";
 import ProjectGallery from "@/components/project-gallery";
 import ViewCounter from "@/components/view-counter";
+import BackButton from "@/components/back-button";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -58,11 +48,11 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
         { order: 'asc' },
         { createdAt: 'desc' }
       ],
-      select: { 
-        title: true, 
-        slug: true, 
-        category: true, 
-        thumbnail: true 
+      select: {
+        title: true,
+        slug: true,
+        category: true,
+        thumbnail: true
       }
     })
   ]);
@@ -70,8 +60,8 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
   if (!project) notFound();
 
   const currentIndex = allProjects.findIndex(p => p.slug === slug);
-  const nextProject = allProjects.length > 1 
-    ? allProjects[(currentIndex + 1) % allProjects.length] 
+  const nextProject = allProjects.length > 1
+    ? allProjects[(currentIndex + 1) % allProjects.length]
     : null;
 
   const allImages = [project.thumbnail, ...project.images];
@@ -82,12 +72,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
       <div className="relative z-10 flex flex-col min-h-screen">
         <article className="w-full mx-auto px-4 py-16 sm:py-24 max-w-[1024px] flex-grow">
           <div className="mb-8">
-            <Link
-              href="/projects"
-              className="inline-flex items-center gap-2 mb-6 pl-0 hover:pl-2 transition-all text-muted hover:text-primary transition-colors text-sm font-medium"
-            >
-              <ArrowLeft className="h-4 w-4" /> Back to Projects
-            </Link>
+            <BackButton href="/projects" label="Back to Projects" />
             <div className="flex flex-wrap gap-2 mb-4">
               <Badge variant="secondary" className="bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-500 dark:text-white dark:hover:bg-blue-600 border-transparent">
                 {project.category}
@@ -118,12 +103,12 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
                 </a>
               </Button>
             )}
-            
+
             {project.videoUrl && (
               <Button asChild className="bg-[#ef4444] hover:bg-[#dc2626] dark:bg-[#ef4444] dark:text-white dark:hover:bg-[#dc2626] text-white rounded-xl px-7 h-11 shadow-md transition-all duration-300 active:scale-[0.98]">
                 <a href={project.videoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 font-semibold text-[15px]">
                   <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
                   </svg>
                   Video Demo
                 </a>
@@ -193,7 +178,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 
               {nextProject && (
-                <Link 
+                <Link
                   href={`/projects/${nextProject.slug}`}
                   className="group relative overflow-hidden rounded-3xl bg-white border border-slate-200 p-8 transition-all hover:shadow-xl hover:border-accent/40 hover:-translate-y-1"
                 >
@@ -215,12 +200,12 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
                   </div>
 
                   <div className="absolute top-0 right-0 w-1/2 h-full opacity-[0.05] group-hover:opacity-[0.12] transition-opacity">
-                     <Image 
-                        src={nextProject.thumbnail} 
-                        alt="" 
-                        fill 
-                        className="object-cover grayscale"
-                     />
+                    <Image
+                      src={nextProject.thumbnail}
+                      alt=""
+                      fill
+                      className="object-cover grayscale"
+                    />
                   </div>
                 </Link>
               )}
@@ -237,9 +222,9 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
                   </div>
                   <div className="mt-8">
                     <Button asChild className="bg-white text-navy hover:bg-accent hover:text-white dark:bg-white dark:text-navy dark:hover:bg-accent dark:hover:text-white rounded-xl px-6 font-bold shadow-lg transition-all duration-300 active:scale-95 border-none">
-                      <a 
-                        href="https://wa.me/6285177440699?text=Hello%20Iqbal%2C%20I%20saw%20your%20project%20and%20would%20like%20to%20discuss%20a%20collaboration!" 
-                        target="_blank" 
+                      <a
+                        href="https://wa.me/6285177440699?text=Hello%20Iqbal%2C%20I%20saw%20your%20project%20and%20would%20like%20to%20discuss%20a%20collaboration!"
+                        target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2"
                       >

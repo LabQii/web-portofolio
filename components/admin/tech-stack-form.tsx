@@ -78,7 +78,7 @@ export default function TechStackAdminForm({ techStacks }: { techStacks: TechSta
                   <div className="flex items-center gap-3">
                     {tech.customLogoUrl ? (
                       <div className="relative w-8 h-8 rounded-md overflow-hidden bg-white border border-[#e2e8f0] shadow-sm">
-                        <Image src={tech.customLogoUrl} alt={tech.name} fill className="object-contain p-1" />
+                        <Image src={tech.customLogoUrl} alt={tech.name} fill sizes="40px" className="object-contain p-1" />
                       </div>
                     ) : (
                       <div className="w-8 h-8 rounded-md bg-slate-100 flex items-center justify-center font-bold text-slate-500 text-sm">{tech.name.charAt(0).toUpperCase()}</div>
@@ -148,7 +148,7 @@ export default function TechStackAdminForm({ techStacks }: { techStacks: TechSta
                 {preview ? (
                   <div className="flex flex-col items-center gap-3">
                     <div className="relative w-16 h-16 rounded-lg overflow-hidden border border-[#e2e8f0] shadow-sm bg-white">
-                      <Image src={preview} alt="Logo preview" fill className="object-contain p-2" />
+                      <Image src={preview} alt="Logo preview" fill sizes="40px" className="object-contain p-2" />
                     </div>
                     <span className="text-[13px] text-[#64748b]">Click to change image</span>
                   </div>

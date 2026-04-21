@@ -100,7 +100,7 @@ export default function PostForm({ post, action, submitLabel = "Save Post" }: Po
             }} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" />
             {thumbnail ? (
               <div className="relative aspect-video">
-                <Image src={thumbnail} alt="Thumbnail preview" fill className="object-cover" />
+                <Image src={thumbnail} alt="Thumbnail preview" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
                   <span className="text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity bg-black/60 px-3 py-1.5 rounded-lg">Change Image</span>
                 </div>

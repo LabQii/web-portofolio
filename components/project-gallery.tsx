@@ -49,7 +49,7 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
 
   return (
     <div className="w-full flex flex-col gap-4">
-      
+
       <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-900 shadow-lg border border-slate-200 dark:border-slate-800 group">
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
@@ -102,11 +102,10 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
               <button
                 key={index}
                 onClick={() => handleThumbnailClick(index)}
-                className={`relative w-24 sm:w-32 aspect-video rounded-lg overflow-hidden flex-shrink-0 transition-all duration-300 border-2 ${
-                  currentIndex === index
+                className={`relative w-24 sm:w-32 aspect-video rounded-lg overflow-hidden flex-shrink-0 transition-all duration-300 border-2 ${currentIndex === index
                     ? "border-accent scale-100 opacity-100 shadow-md"
                     : "border-transparent opacity-60 hover:opacity-100 scale-95 hover:scale-100"
-                }`}
+                  }`}
               >
                 <Image
                   src={image}

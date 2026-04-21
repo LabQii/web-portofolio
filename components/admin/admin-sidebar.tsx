@@ -26,7 +26,7 @@ export default function AdminSidebar({ profileImage }: AdminSidebarProps) {
 
   return (
     <aside className="w-[220px] bg-white border-r border-[#e2e8f0] flex flex-col h-full shrink-0 z-10">
-      
+
       <div className="px-4 py-5 border-b border-[#e2e8f0]">
         <div className="flex items-center gap-3">
           <div className="relative w-9 h-9 rounded-lg overflow-hidden border border-[#e2e8f0] bg-slate-50 shrink-0 flex items-center justify-center p-1 shadow-sm">
@@ -34,6 +34,7 @@ export default function AdminSidebar({ profileImage }: AdminSidebarProps) {
               src={profileImage || "/images/icon-li.png"}
               alt="Profile"
               fill
+              sizes="40px"
               className={cn("object-cover", !profileImage && "object-contain opacity-80")}
             />
           </div>
