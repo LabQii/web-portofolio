@@ -47,85 +47,69 @@ export default function PageLoader() {
         backgroundColor: isDark ? "#0f172a" : "#ffffff",
         transition: "opacity 0.4s ease, transform 0.4s ease",
         opacity: isExiting ? 0 : 1,
-        transform: isExiting ? "translateY(-8px)" : "translateY(0)",
+        transform: isExiting ? "scale(1.05)" : "scale(1)",
         pointerEvents: isExiting ? "none" : "all",
       }}
     >
       <div
         style={{
           position: "relative",
-          width: 80,
-          height: 80,
+          width: 120,
+          height: 120,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
         }}
       >
-        
+        {/* Glow behind the logo */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            borderRadius: "50%",
+            background: isDark ? "rgba(96, 165, 250, 0.2)" : "rgba(30, 58, 95, 0.1)",
+            filter: "blur(20px)",
+            animation: "loader-glow 2s ease-in-out infinite",
+          }}
+        />
+
+        {/* The main logo */}
         <img
           src="/images/icon-li.png"
           alt="Logo"
           style={{
-            width: 32,
-            height: 32,
+            width: 80,
+            height: 80,
             objectFit: "contain",
-            animation: "loader-pulse 2s ease-in-out infinite",
+            animation: "loader-scale 2s cubic-bezier(0.4, 0, 0.2, 1) infinite",
             position: "relative",
             zIndex: 1,
             userSelect: "none",
+            filter: isDark ? "drop-shadow(0 0 8px rgba(255,255,255,0.1))" : "drop-shadow(0 4px 6px rgba(0,0,0,0.1))",
           }}
         />
-
-        <svg
-          viewBox="0 0 80 80"
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            animation: "loader-spin 1.2s linear infinite",
-          }}
-        >
-          <circle
-            cx="40"
-            cy="40"
-            r="34"
-            fill="none"
-            stroke={isDark ? "#60a5fa" : "#1e3a5f"}
-            strokeWidth="1.5"
-            strokeDasharray="60 154"
-            strokeLinecap="round"
-          />
-        </svg>
-
-        <svg
-          viewBox="0 0 80 80"
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            opacity: 0.15,
-          }}
-        >
-          <circle
-            cx="40"
-            cy="40"
-            r="34"
-            fill="none"
-            stroke={isDark ? "#93c5fd" : "#1e3a5f"}
-            strokeWidth="1"
-          />
-        </svg>
       </div>
 
       <style>{`
-        @keyframes loader-spin {
-          to { transform: rotate(360deg); }
+        @keyframes loader-scale {
+          0%, 100% { 
+            transform: scale(0.95);
+            opacity: 0.8;
+          }
+          50% { 
+            transform: scale(1.05);
+            opacity: 1;
+          }
         }
-        @keyframes loader-pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.35; }
+        @keyframes loader-glow {
+          0%, 100% { 
+            transform: scale(0.8);
+            opacity: 0.5;
+          }
+          50% { 
+            transform: scale(1.2);
+            opacity: 1;
+          }
         }
       `}</style>
     </div>
