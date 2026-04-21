@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Music } from "lucide-react";
 
 export default function PageLoader() {
   const [isLoading, setIsLoading] = useState(true);
@@ -56,8 +57,8 @@ export default function PageLoader() {
       <div
         style={{
           position: "relative",
-          width: 120,
-          height: 120,
+          width: 130,
+          height: 130,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -74,6 +75,34 @@ export default function PageLoader() {
             animation: "loader-glow 2s ease-in-out infinite",
           }}
         />
+
+        {/* Orbiting Musical Notes */}
+        {[0, 120, 240].map((deg, i) => (
+          <div
+            key={i}
+            style={{
+              position: "absolute",
+              top: '50%',
+              left: '50%',
+              width: 24,
+              height: 24,
+              marginTop: -12,
+              marginLeft: -12,
+              animation: `orbit-${deg} 3s linear infinite`,
+              color: isDark ? "#38bdf8" : "#0ea5e9", // match progress bar
+              zIndex: 2,
+              opacity: 0.85,
+              filter: isDark ? "drop-shadow(0 0 4px rgba(56, 189, 248, 0.5))" : "drop-shadow(0 2px 4px rgba(14, 165, 233, 0.3))",
+            }}
+          >
+            {/* Make the icon pulse slightly for more life */}
+            <Music 
+              style={{ animation: "note-pulse 1.5s ease-in-out infinite alternate" }}
+              size={i === 1 ? 16 : 20} // middle one smaller
+              strokeWidth={2.5} 
+            />
+          </div>
+        ))}
 
         {/* The main logo */}
         <img
@@ -101,6 +130,7 @@ export default function PageLoader() {
           borderRadius: "4px",
           overflow: "hidden",
           position: "relative",
+          marginTop: "4px",
         }}
       >
         {/* Progress Bar Fill */}
@@ -149,6 +179,22 @@ export default function PageLoader() {
           100% {
             transform: scaleX(1);
           }
+        }
+        @keyframes note-pulse {
+          0% { transform: scale(0.9) rotate(-10deg); }
+          100% { transform: scale(1.1) rotate(10deg); }
+        }
+        @keyframes orbit-0 {
+          from { transform: rotate(0deg) translateX(70px) rotate(0deg); }
+          to   { transform: rotate(360deg) translateX(70px) rotate(-360deg); }
+        }
+        @keyframes orbit-120 {
+          from { transform: rotate(120deg) translateX(70px) rotate(-120deg); }
+          to   { transform: rotate(480deg) translateX(70px) rotate(-480deg); }
+        }
+        @keyframes orbit-240 {
+          from { transform: rotate(240deg) translateX(70px) rotate(-240deg); }
+          to   { transform: rotate(600deg) translateX(70px) rotate(-600deg); }
         }
       `}</style>
     </div>
