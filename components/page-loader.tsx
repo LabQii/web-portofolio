@@ -81,20 +81,17 @@ export default function PageLoader() {
         <div style={{
           position: "relative",
           zIndex: 10,
-          background: isDark ? "#1e293b" : "#ffffff",
-          borderRadius: "50%",
-          padding: "6px", // Much smaller padding so logo is huge and dominant
-          boxShadow: isDark ? "0 4px 24px rgba(0,0,0,0.5)" : "0 8px 32px rgba(30, 58, 138, 0.15)", // Navy tinted shadow in light mode
           animation: "logo-beat 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite",
         }}>
           <img
             src="/images/icon-li.png"
             alt="Logo"
             style={{
-              width: 68, // Huge and extremely clear
-              height: 68,
+              width: 76, // Huge and extremely clear, pure logo without radius
+              height: 76,
               objectFit: "contain",
               userSelect: "none",
+              filter: isDark ? "drop-shadow(0 4px 12px rgba(0,0,0,0.6))" : "drop-shadow(0 4px 12px rgba(30,58,138,0.2))"
             }}
           />
         </div>
